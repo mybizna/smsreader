@@ -22,7 +22,7 @@ If you have any questions or need assistance, please contact our support team. W
 If you're interested in contributing to this project, please reach out to the team. We welcome pull requests and bug reports.
 
 ## License
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the GPL-3.0-or-later.
 
 ## Note
 Make sure to check the pricing and SMS message limits of your SMS gateway service.
