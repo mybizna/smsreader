@@ -1,16 +1,16 @@
 <?php
 
-namespace Modules\Massmail\Entities;
+namespace Modules\Smsreader\Entities;
 
 use Modules\Base\Entities\BaseModel;
 use Illuminate\Database\Schema\Blueprint;
 
-class Massmail extends BaseModel
+class Payment extends BaseModel
 {
 
     protected $fillable = ['name'];
     public $migrationDependancy = [];
-    protected $table = "massmail_payment";
+    protected $table = "smsreader_payment";
 
     /**
      * List of fields for managing postings.

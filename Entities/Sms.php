@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Massmail\Entities;
+namespace Modules\Smsreader\Entities;
 
 use Modules\Base\Entities\BaseModel;
 use Illuminate\Database\Schema\Blueprint;
@@ -10,7 +10,7 @@ class Sms extends BaseModel
 
     protected $fillable = ['name'];
     public $migrationDependancy = [];
-    protected $table = "massmail_sms";
+    protected $table = "smsreader_sms";
 
     /**
      * List of fields for managing postings.
