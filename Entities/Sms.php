@@ -8,7 +8,7 @@ use Modules\Base\Entities\BaseModel;
 class Sms extends BaseModel
 {
 
-    protected $fillable = ['name'];
+    protected $fillable = ['phone', 'message', 'date_sent', 'params', 'gateway_id', 'completed', 'successful'];
     public $migrationDependancy = ['sms_gateway'];
     protected $table = "smsreader_sms";
 

@@ -8,8 +8,9 @@ use Modules\Base\Entities\BaseModel;
 class Payment extends BaseModel
 {
 
-    protected $fillable = ['name'];
-    public $migrationDependancy = ['partner', 'smsreader_sms', 'smsreader_format'];
+    protected $fillable = ['phone', 'code', 'name', 'format_id', 'sms_id', 'partner_id',
+        'amount', 'account', 'date_sent', 'completed', 'successful'];
+    public $migrationDependancy = ['smsreader_format', 'smsreader_sms', 'partner'];
     protected $table = "smsreader_payment";
 
     /**
