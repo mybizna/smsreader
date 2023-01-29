@@ -2,14 +2,14 @@
 
 namespace Modules\Smsreader\Entities;
 
-use Modules\Base\Entities\BaseModel;
 use Illuminate\Database\Schema\Blueprint;
+use Modules\Base\Entities\BaseModel;
 
 class Payment extends BaseModel
 {
 
     protected $fillable = ['name'];
-    public $migrationDependancy = [];
+    public $migrationDependancy = ['partner', 'smsreader_sms', 'smsreader_format'];
     protected $table = "smsreader_payment";
 
     /**
@@ -21,6 +21,31 @@ class Payment extends BaseModel
     public function migration(Blueprint $table)
     {
         $table->increments('id');
-        $table->string('name');
+        $table->char('phone', 255);
+        $table->char('code', 255);
+        $table->char('name', 255);
+        $table->integer('format_id');
+        $table->integer('sms_id');
+        $table->integer('partner_id');
+        $table->decimal('amount', 20, 2);
+        $table->char('account', 255);
+        $table->datetime('date_sent');
+        $table->tinyInteger('completed')->default(false);
+        $table->tinyInteger('successful')->default(false);
+    }
+
+    public function post_migration(Blueprint $table)
+    {
+        if (Migration::checkKeyExist('smsreader_payment', 'format_id')) {
+            $table->foreign('format_id')->references('id')->on('smsreader_format')->nullOnDelete();
+        }
+
+        if (Migration::checkKeyExist('smsreader_payment', 'message_id')) {
+            $table->foreign('message_id')->references('id')->on('smsreader_sms')->nullOnDelete();
+        }
+
+        if (Migration::checkKeyExist('smsreader_payment', 'partner_id')) {
+            $table->foreign('partner_id')->references('id')->on('partner')->nullOnDelete();
+        }
     }
 }
