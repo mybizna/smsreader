@@ -4,6 +4,7 @@ namespace Modules\Smsreader\Entities;
 
 use Illuminate\Database\Schema\Blueprint;
 use Modules\Base\Entities\BaseModel;
+use Modules\Base\Classes\Migration;
 
 class Sms extends BaseModel
 {
