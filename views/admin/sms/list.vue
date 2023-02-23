@@ -1,7 +1,28 @@
 
 <template>
-    <table-render title="SMS Reader Messaage" :path_param="path_param" :search_fields="search_fields" :model="model"
-        :table_fields="table_fields"></table-render>
+    <table-render :path_param="['smsreader', 'sms']" title="SMS Reader Messaage" :table_fields="table_fields">
+
+        <template #header>
+            <th-render>Phone</th-render>
+            <th-render>Message</th-render>
+            <th-render>Date Sent</th-render>
+            <th-render>Params</th-render>
+            <th-render>Gateway</th-render>
+            <th-render>Completed</th-render>
+            <th-render>Successful</th-render>
+        </template>
+
+        <template #body="{ item }">
+            <td>{{ item.phone }}</td>
+            <td>{{ item.message }}</td>
+            <td>{{ item.date_sent }}</td>
+            <td>{{ item.params }}</td>
+            <td>{{ item.gateway_id }}</td>
+            <td>{{ item.completed }}</td>
+            <td>{{ item.successful }}</td>
+        </template>
+
+    </table-render>
 </template>
 
 <script>
@@ -9,34 +30,7 @@
 export default {
     data() {
         return {
-            path_param: ["smsreader", "sms"],
-            model: {
-                id: "",
-                phone: "",
-                message: "",
-                date_sent: "",
-                params: "",
-                gateway_id: "",
-                completed: "",
-                successful: "",
-            },
-            search_fields: [
-                { type: "text", name: "phone", label: "Phone", ope: "", },
-                { type: "text", name: "message", label: "Message", ope: "", },
-                { type: "text", name: "date_sent", label: "Date Sent", ope: "", },
-                { type: "text", name: "gateway_id", label: "Gateway", ope: "", },
-                { type: "text", name: "completed", label: "Completed", ope: "", },
-                { type: "text", name: "successful", label: "Successful", ope: "", },
-            ],
-            table_fields: [
-                { text: "Phone", prop: "phone", name: "phone", },
-                { text: "Message", prop: "message", name: "message", },
-                { text: "Date Sent", prop: "date_sent", name: "date_sent", },
-                { text: "Params", prop: "params", name: "params", },
-                { text: "Gateway", prop: "gateway_id", name: "gateway_id", },
-                { text: "Completed", prop: "completed", name: "completed", },
-                { text: "Successful", prop: "successful", name: "successful", },
-            ],
+            table_fields: ['phone', 'message', 'date_sent', 'params', 'gateway_id', 'completed', 'successful'],
         };
     }
 };

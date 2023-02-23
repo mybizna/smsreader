@@ -1,34 +1,31 @@
 
 <template>
-    <table-render title="SMS Reader Format" :path_param="path_param" :search_fields="search_fields" :model="model"
-        :table_fields="table_fields"></table-render>
+    <table-render :path_param="['smsreader', 'format']" title="SMS Reader Format" :table_fields="table_fields">
+
+        <template #header>
+            <th-render>Title</th-render>
+            <th-render>Format</th-render>
+            <th-render>Fields Str</th-render>
+            <th-render>Published</th-render>
+        </template>
+
+        <template #body="{ item }">
+            <td>{{ item.title }}</td>
+            <td>{{ item.format }}</td>
+            <td>{{ item.fields_str }}</td>
+            <td>{{ item.published }}</td>
+        </template>
+
+    </table-render>
 </template>
 
 <script>
 
 export default {
-    data () {
+    data() {
         return {
-            path_param: ["smsreader", "format"],
-            model: {
-                id: "",
-                title: "",
-                format: "",
-                fields_str: "",
-                published: "",
-            },
-            search_fields: [
-                { type: "text", name: "title", label: "Title", ope: "", },
-                { type: "text", name: "format", label: "Format", ope: "", },
-                { type: "text", name: "fields_str", label: "Fields Str", ope: "", },
-                { type: "text", name: "published", label: "Published", ope: "", },
-            ],
-            table_fields: [
-                { text: "Title", prop: "title", name: "title", },
-                { text: "Format", prop: "format", name: "format", },
-                { text: "Fields Str", prop: "fields_str", name: "fields_str", },
-                { text: "Published", prop: "published", name: "published", },
-            ],
+            table_fields: ['title', 'format', 'fields_str', 'published'],
+
         };
     }
 };
