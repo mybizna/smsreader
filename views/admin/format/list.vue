@@ -13,7 +13,9 @@
             <td>{{ item.title }}</td>
             <td>{{ item.format }}</td>
             <td>{{ item.fields_str }}</td>
-            <td>{{ item.published }}</td>
+            <td class="text-center">
+                <btn-status :status="item.published"></btn-status>
+            </td>
         </template>
 
     </table-render>
