@@ -16,7 +16,7 @@ class Format
         $datasetter->add_data('smsreader', 'format', 'slug', [
             "title" => "Paybill Number",
             "slug" => "paybill_number",
-            "format" => '(.*) Confirmed. on (.*) at (.*) (.*) received from (.*) (.*).  Account Number (.*)',
+            "format" => '(.*) Confirmed. on (.*) at (.*) (.*) received from (.*) (.*).  Account Number (.*) New Utility balance',
             "fields_str" => 'code, date,time,amount,name,phone,account',
             "published" => true
         ]);
