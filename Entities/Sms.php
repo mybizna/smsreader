@@ -9,9 +9,11 @@ use Modules\Base\Classes\Migration;
 class Sms extends BaseModel
 {
 
-    protected $fillable = ['phone', 'message', 'date_sent', 'params', 'gateway_id', 'completed', 'successful'];
+    protected $fillable = ['phone', 'message', 'params', 'gateway_id', 'completed', 'successful'];
     public $migrationDependancy = ['sms_gateway'];
     protected $table = "smsreader_sms";
+
+    protected $can_delete = "false";
 
     /**
      * List of fields for managing postings.
@@ -24,11 +26,10 @@ class Sms extends BaseModel
         $table->increments('id');
         $table->char('phone', 255);
         $table->string('message');
-        $table->datetime('date_sent');
         $table->string('params');
         $table->integer('gateway_id');
-        $table->tinyInteger('completed')->default(true);
-        $table->tinyInteger('successful')->default(true);
+        $table->tinyInteger('completed')->default(false);
+        $table->tinyInteger('successful')->default(false);
     }
 
     public function post_migration(Blueprint $table)

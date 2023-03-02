@@ -5,12 +5,12 @@ namespace Modules\Smsreader\Entities;
 use Illuminate\Database\Schema\Blueprint;
 use Modules\Base\Entities\BaseModel;
 
-class Format extends BaseModel
+class Template extends BaseModel
 {
 
-    protected $fillable = ['title','slug', 'format', 'fields_str', 'published'];
+    protected $fillable = ['title','slug', 'template', 'published'];
     public $migrationDependancy = [];
-    protected $table = "smsreader_format";
+    protected $table = "smsreader_template";
 
     /**
      * List of fields for managing postings.
@@ -23,8 +23,7 @@ class Format extends BaseModel
         $table->increments('id');
         $table->char('title', 255);
         $table->char('slug', 255);
-        $table->string('format');
-        $table->string('fields_str');
+        $table->string('template');
         $table->tinyInteger('published')->default(true);
     }
 }

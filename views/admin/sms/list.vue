@@ -1,6 +1,7 @@
 
 <template>
-    <table-render :path_param="['smsreader', 'sms']" title="SMS Reader Messaage" :table_fields="table_fields">
+    <table-render :path_param="['smsreader', 'sms']" title="SMS Reader Messaage" :table_fields="table_fields"
+        :setting="{ hide_delete_button: true }">
 
         <template #header>
             <th-render>Phone</th-render>

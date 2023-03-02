@@ -3,8 +3,8 @@
 namespace Modules\Smsreader\Entities;
 
 use Illuminate\Database\Schema\Blueprint;
-use Modules\Base\Entities\BaseModel;
 use Modules\Base\Classes\Migration;
+use Modules\Base\Entities\BaseModel;
 
 class Payment extends BaseModel
 {
@@ -13,6 +13,8 @@ class Payment extends BaseModel
         'amount', 'account', 'date_sent', 'completed', 'successful'];
     public $migrationDependancy = ['smsreader_format', 'smsreader_sms', 'partner'];
     protected $table = "smsreader_payment";
+
+    protected $can_delete = "false";
 
     /**
      * List of fields for managing postings.
@@ -29,6 +31,7 @@ class Payment extends BaseModel
         $table->integer('format_id');
         $table->integer('sms_id');
         $table->integer('partner_id');
+        $table->enum('waiting', ['start', 'phone', 'account'])->default('start')->nullable();
         $table->decimal('amount', 20, 2);
         $table->char('account', 255);
         $table->datetime('date_sent');
