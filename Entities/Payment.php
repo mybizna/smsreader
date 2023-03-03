@@ -34,6 +34,7 @@ class Payment extends BaseModel
         $table->enum('waiting', ['start', 'phone', 'account'])->default('start')->nullable();
         $table->decimal('amount', 20, 2);
         $table->char('account', 255);
+        $table->char('request_type', 255);
         $table->datetime('date_sent');
         $table->tinyInteger('completed')->default(false);
         $table->tinyInteger('successful')->default(false);

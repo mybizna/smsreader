@@ -1,6 +1,8 @@
 # Mybizna ERP SMS Sending Module
 This module allows users of the Mybizna ERP platform to easily send SMS messages to customers and employees directly from the platform.
 
+
+
 ## Getting Started
 - Sign up for an SMS gateway service such as Twilio and obtain an API key.
 - Configure the API key within the Mybizna ERP platform.
@@ -27,3 +29,8 @@ This project is licensed under the GPL-3.0-or-later.
 ## Note
 Make sure to check the pricing and SMS message limits of your SMS gateway service.
 Feel free to make any suggestions or improvements to this module.
+
+## SMS Parser
+PD77K63BLB Confirmed.You have received Ksh8,000.00 from JONH  MWANGI 0732329393 on 7/4/23 at 4:30 PM  New M-PESA balance is Ksh140,753.32. SAFARICOM ONLY CALLS YOU FROM 0722000000. To reverse, forward this message to 456.
+
+PD77K63BLBX Confirmed. on 12/11/09 at 5:34 AM Ksh100 received from Maina Ben 0712121212 Account Number 123ABC New Utility balance

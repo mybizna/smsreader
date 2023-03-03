@@ -29,6 +29,14 @@ class Format
             "published" => true
         ]);
 
+        $datasetter->add_data('smsreader', 'format', 'slug', [
+            "title" => "Account",
+            "slug" => "account",
+            "format" => 'ACCOUNT (.*) TXN (.*)',
+            "fields_str" => 'account',
+            "published" => true
+        ]);
+
 
     }
 }

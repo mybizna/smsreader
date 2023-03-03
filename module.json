@@ -1,0 +1,13 @@
+{
+    "name": "Smsreader",
+    "alias": "smsreader",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Smsreader\\Providers\\EventServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

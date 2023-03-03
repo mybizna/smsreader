@@ -16,7 +16,7 @@ class Template
         $datasetter->add_data('smsreader', 'template', 'slug', [
             "title" => "Customer Not Found",
             "slug" => "customer_not_found",
-            "template" => 'Customer with phone number [PHONE] was not Found. Please contact Admin [ADMIN_PHONE] or reply with your account name / phone number.',
+            "template" => 'We have received your payment and we need your account name. Please contact Admin [ADMIN_PHONE] or reply with following; ACCOUNT XXXXXX  TXN XXXXXX ',
             "published" => true
         ]);
 
@@ -53,7 +53,7 @@ class Template
         $datasetter->add_data('smsreader', 'template', 'slug', [
             "title" => "Customer Not Found Again",
             "slug" => "customer_not_found_again",
-            "template" => '[ACCOUNT] was not Found. Please contact Admin [ADMIN_PHONE] or reply with your account name / phone number.',
+            "template" => '[ACCOUNT] was not Found. Please contact Admin [ADMIN_PHONE] or reply with following: ACCOUNT XXXXXX TXN XXXXXX ',
             "published" => true
         ]);
 

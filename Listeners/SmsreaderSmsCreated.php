@@ -29,7 +29,8 @@ class SmsreaderSmsCreated
         $table_name = $event->table_name;
         
         if ($table_name == 'smsreader_sms') {
-            $smsreader->processSms();
+            $model = $event->model;
+            $smsreader->processSms($model);
         }
 
     }
