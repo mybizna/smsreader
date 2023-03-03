@@ -2,6 +2,8 @@
 
 namespace Modules\Smsreader\Classes;
 
+use Modules\Account\Classes\Gateway as GatewayCls;
+use Modules\Account\Classes\Payment as PaymentCls;
 use Modules\Partner\Classes\Partner;
 use Modules\Smsreader\Entities\Account;
 use Modules\Smsreader\Entities\Format;
@@ -9,9 +11,6 @@ use Modules\Smsreader\Entities\Payment;
 use Modules\Smsreader\Entities\Requests;
 use Modules\Smsreader\Entities\Sms;
 use Modules\Smsreader\Entities\Template;
-
-use Modules\Account\Classes\Payment AS PaymentCls;
-use Modules\Account\Classes\Gateway AS GatewayCls;
 
 class Smsreader
 {
@@ -41,7 +40,7 @@ class Smsreader
 
         if (isset($account_parts[0])) {
             $partner = $partner_cls->getPartner($account_parts[0][1]);
-            
+
             if ($partner) {
                 $partner_id = $partner->id;
 
@@ -59,7 +58,7 @@ class Smsreader
             }
 
             $sms->completed = true;
-            $sms->is_payment =false;
+            $sms->is_payment = false;
             $sms->save();
 
             return;
@@ -70,12 +69,13 @@ class Smsreader
         foreach ($formatings as $key => $formating) {
 
             $payment = $this->analyzeFormat($formating, $sms);
-
+           
             if ($payment) {
-                $account = Account::where('txn',  $payment->code)->first();
-
-                if ($account) {
-                    $payment->account = $account->account;
+                if ($payment->account == '') {
+                    $account = Account::where('txn', $payment->code)->first();
+                    if ($account) {
+                        $payment->account = $account->account;
+                    }
                 }
             } else {
                 $is_payment = true;
@@ -98,7 +98,7 @@ class Smsreader
                 } elseif ($payment->account) {
 
                     $partner = $partner_cls->getPartner($payment->account);
-
+                    
                     if ($partner) {
                         $this->paymentSuccessful($payment, $partner);
                     } else {
@@ -226,9 +226,8 @@ class Smsreader
         $gateway = $gateway_cls->getGatewayBySlug('mpesa');
         $amount = $payment->amount;
         $title = "Payment of $payment->amount from $payment->phone via $gateway->title ";
-        
+
         $payment_cls->addPayment($partner->id, $title, $amount, $gateway->id);
-        print_r($title); exit;
     }
 
 }
