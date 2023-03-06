@@ -1,6 +1,5 @@
 <?php
 
-namespace Modules\Sms\Entities;
 
 use Illuminate\Database\Schema\Blueprint;
 use Modules\Base\Entities\BaseModel;
