@@ -9,24 +9,24 @@ use Modules\Smsreader\Entities\Account;
 use Modules\Smsreader\Entities\Format;
 use Modules\Smsreader\Entities\Payment;
 use Modules\Smsreader\Entities\Requests;
-use Modules\Smsreader\Entities\Sms;
+use Modules\Smsreader\Entities\Incoming;
 use Modules\Smsreader\Entities\Template;
 
 class Smsreader
 {
 
-    public function processSms($sms)
+    public function processIncoming($incoming)
     {
-        $this->processFormat($sms);
+        $this->processFormat($incoming);
 
-        $smses = Sms::where(['completed' => false])->get();
+        $incomings = Incoming::where(['completed' => false])->get();
 
-        foreach ($smses as $key => $sms) {
-            $this->processFormat($sms);
+        foreach ($incomings as $key => $incoming) {
+            $this->processFormat($incoming);
         }
     }
 
-    protected function processFormat($sms)
+    protected function processFormat($incoming)
     {
         $partner_cls = new Partner();
 
@@ -36,7 +36,7 @@ class Smsreader
         $account = Format::where(['slug' => 'account'])->first();
         $account_parts = [];
 
-        preg_match_all('/^' . $account->format . '/', preg_replace('/\s+/', ' ', $sms->message), $account_parts, PREG_SET_ORDER);
+        preg_match_all('/^' . $account->format . '/', preg_replace('/\s+/', ' ', $incoming->message), $account_parts, PREG_SET_ORDER);
 
         if (isset($account_parts[0])) {
             $partner = $partner_cls->getPartner($account_parts[0][1]);
@@ -57,9 +57,9 @@ class Smsreader
                 }
             }
 
-            $sms->completed = true;
-            $sms->is_payment = false;
-            $sms->save();
+            $incoming->completed = true;
+            $incoming->is_payment = false;
+            $incoming->save();
 
             return;
         }
@@ -68,7 +68,7 @@ class Smsreader
 
         foreach ($formatings as $key => $formating) {
 
-            $payment = $this->analyzeFormat($formating, $sms);
+            $payment = $this->analyzeFormat($formating, $incoming);
            
             if ($payment) {
                 if ($payment->account == '') {
@@ -114,21 +114,21 @@ class Smsreader
                 }
             }
 
-            $sms->completed = true;
-            $sms->is_payment = $is_payment;
-            $sms->save();
+            $incoming->completed = true;
+            $incoming->is_payment = $is_payment;
+            $incoming->save();
 
         }
     }
 
-    protected function analyzeFormat($formating, $sms)
+    protected function analyzeFormat($formating, $incoming)
     {
         $message_parts = [];
 
-        preg_match_all('/^' . $formating->format . '/', $sms->message, $message_parts, PREG_SET_ORDER);
+        preg_match_all('/^' . $formating->format . '/', $incoming->message, $message_parts, PREG_SET_ORDER);
 
         if (isset($message_parts[0]) && $formating->fields_str) {
-            $analysis = ['name' => '', 'phone' => '', 'code' => '', 'date' => '', 'message_id' => $sms->id,
+            $analysis = ['name' => '', 'phone' => '', 'code' => '', 'date' => '', 'message_id' => $incoming->id,
                 'time' => '', 'amount' => '', 'account' => '', 'format_id' => $formating->id,
             ];
 

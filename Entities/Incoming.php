@@ -6,15 +6,13 @@ use Illuminate\Database\Schema\Blueprint;
 use Modules\Base\Classes\Migration;
 use Modules\Base\Entities\BaseModel;
 
-class Sms extends BaseModel
+class Incoming extends BaseModel
 {
-    /**
-     * Modules\Smsreader\Entities\Sms::create(['phone'=>'254732329393','date_sent'=>date('Y-m-d H:i:s'),'gateway_id' => 1, 'message'=>'PD77K63BLBX Confirmed. on 12/11/09 at 5:34 AM Ksh100 received from Maina Ben Account Number 123ABC New Utility balance is Ksh3,150',]);
-     */
+  
 
     protected $fillable = ['phone', 'message', 'date_sent', 'params', 'gateway_id', 'is_payment', 'completed', 'successful'];
     public $migrationDependancy = ['sms_gateway'];
-    protected $table = "smsreader_sms";
+    protected $table = "smsreader_incoming";
 
     protected $can_delete = "false";
 
@@ -29,8 +27,8 @@ class Sms extends BaseModel
         $table->increments('id');
         $table->char('phone', 255);
         $table->string('message');
-        $table->datetime('date_sent');
-        $table->integer('gateway_id');
+        $table->datetime('date_sent')->nullable();
+        $table->integer('gateway_id')->nullable();
         $table->string('params')->nullable();
         $table->tinyInteger('is_payment')->default(false);
         $table->tinyInteger('completed')->default(false);
@@ -39,7 +37,7 @@ class Sms extends BaseModel
 
     public function post_migration(Blueprint $table)
     {
-        if (Migration::checkKeyExist('smsreader_sms', 'gateway_id')) {
+        if (Migration::checkKeyExist('smsreader_incoming', 'gateway_id')) {
             $table->foreign('gateway_id')->references('id')->on('sms_gateway')->nullOnDelete();
         }
     }

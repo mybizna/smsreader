@@ -8,7 +8,7 @@
                 <FormKit v-model="model.code" label="Code" id="code" type="text" validation="required" />
                 <FormKit v-model="model.name" label="Name" id="name" type="text" validation="required" />
                 <FormKit v-model="model.format_id" label="Format" id="format_id" type="text" validation="required" />
-                <FormKit v-model="model.sms_id" label="Sms" id="sms_id" type="text" validation="required" />
+                <FormKit v-model="model.incoming_id" label="Incoming" id="incoming_id" type="text" validation="required" />
                 <FormKit v-model="model.partner_id" label="Partner" id="partner_id" type="text" validation="required" />
                 <FormKit v-model="model.amount" label="Amount" id="amount" type="text" validation="required" />
                 <FormKit v-model="model.account" label="Account" id="account" type="text" validation="required" />
@@ -34,7 +34,7 @@ export default {
                 code: "",
                 name: "",
                 format_id: "",
-                sms_id: "",
+                incoming_id: "",
                 partner_id: "",
                 amount: "",
                 account: "",

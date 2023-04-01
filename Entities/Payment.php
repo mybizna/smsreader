@@ -9,9 +9,9 @@ use Modules\Base\Entities\BaseModel;
 class Payment extends BaseModel
 {
 
-    protected $fillable = ['phone', 'code', 'name', 'format_id', 'sms_id', 'partner_id',
+    protected $fillable = ['phone', 'code', 'name', 'format_id', 'incoming_id', 'partner_id',
         'amount', 'account', 'date_sent', 'completed', 'successful'];
-    public $migrationDependancy = ['smsreader_format', 'smsreader_sms', 'partner'];
+    public $migrationDependancy = ['smsreader_format', 'smsreader_incoming', 'partner'];
     protected $table = "smsreader_payment";
 
     protected $can_delete = "false";
@@ -29,7 +29,7 @@ class Payment extends BaseModel
         $table->char('code', 255);
         $table->char('name', 255);
         $table->integer('format_id');
-        $table->integer('sms_id');
+        $table->integer('incoming_id');
         $table->integer('partner_id');
         $table->enum('waiting', ['start', 'phone', 'account'])->default('start')->nullable();
         $table->decimal('amount', 20, 2);
@@ -46,8 +46,8 @@ class Payment extends BaseModel
             $table->foreign('format_id')->references('id')->on('smsreader_format')->nullOnDelete();
         }
 
-        if (Migration::checkKeyExist('smsreader_payment', 'message_id')) {
-            $table->foreign('message_id')->references('id')->on('smsreader_sms')->nullOnDelete();
+        if (Migration::checkKeyExist('smsreader_payment', 'incoming_id')) {
+            $table->foreign('message_id')->references('id')->on('smsreader_incoming')->nullOnDelete();
         }
 
         if (Migration::checkKeyExist('smsreader_payment', 'partner_id')) {

@@ -7,7 +7,7 @@
             <th-render>Code</th-render>
             <th-render>Name</th-render>
             <th-render>Format</th-render>
-            <th-render>Sms</th-render>
+            <th-render>Incoming</th-render>
             <th-render>Partner</th-render>
             <th-render>Amount</th-render>
             <th-render>Account</th-render>
@@ -21,7 +21,7 @@
             <td>{{ item.code }}</td>
             <td>{{ item.name }}</td>
             <td>{{ item.format_id }}</td>
-            <td>{{ item.sms_id }}</td>
+            <td>{{ item.incoming_id }}</td>
             <td>{{ item.partner_id }}</td>
             <td>{{ item.amount }}</td>
             <td>{{ item.account }}</td>
@@ -43,7 +43,7 @@ export default {
     data() {
         return {
             table_fields: [
-                'phone', 'code', 'name', 'format_id', 'sms_id', 'partner_id',
+                'phone', 'code', 'name', 'format_id', 'incoming_id', 'partner_id',
                 'amount', 'account', 'date_sent', 'completed', 'successful'
             ],
         };
