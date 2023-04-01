@@ -30,7 +30,7 @@ class SmsreaderSmsCreated
         
         if ($table_name == 'smsreader_incoming') {
             $model = $event->model;
-            $smsreader->processSms($model);
+            $smsreader->processIncoming($model);
         }
 
     }

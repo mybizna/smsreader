@@ -28,6 +28,8 @@ class Incoming extends BaseModel
         $table->char('phone', 255);
         $table->string('message');
         $table->datetime('date_sent')->nullable();
+        $table->datetime('date_received')->nullable();
+        $table->string('sim')->nullable();
         $table->integer('gateway_id')->nullable();
         $table->string('params')->nullable();
         $table->tinyInteger('is_payment')->default(false);
