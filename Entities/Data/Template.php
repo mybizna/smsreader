@@ -16,21 +16,14 @@ class Template
         $datasetter->add_data('smsreader', 'template', 'slug', [
             "title" => "Customer Not Found",
             "slug" => "customer_not_found",
-            "template" => 'We have received your payment and we need your account name. Please contact Admin [ADMIN_PHONE] or reply with following; ACCOUNT XXXXXX  TXN XXXXXX ',
-            "published" => true
-        ]);
-
-        $datasetter->add_data('smsreader', 'template', 'slug', [
-            "title" => "Customer Found With Many Invoices",
-            "slug" => "customer_found_with_invoices",
-            "template" => 'Hi [Name]. Following are active invoices;[INVOICES]. Reply.',
+            "template" => 'We have received your payment and we need your account name.Please contact Admin [ADMIN_PHONE] or Forward your payment SMS to [ADMIN_PHONE] or reply with following; ACCOUNT XXXXXX  TXN XXXXXX ',
             "published" => true
         ]);
 
         $datasetter->add_data('smsreader', 'template', 'slug', [
             "title" => "Payment Sucessful",
             "slug" => "payment_successful",
-            "template" => 'Hi [Name]. Payment Successful. Payment of [AMOUNT] was made to invoice [INVOICE_ID] [NOTE]. For more info call [ADMIN_PHONE]',
+            "template" => 'Hi [Name]. Payment of [AMOUNT] with code [CODE] was Successful. For more info call [ADMIN_PHONE]',
             "published" => true
         ]);
 
@@ -39,6 +32,13 @@ class Template
             "title" => "Payment Failed",
             "slug" => "payment_failed",
             "template" => 'Payment Failed. Please contact Admin [ADMIN_PHONE]',
+            "published" => true
+        ]);
+
+        $datasetter->add_data('smsreader', 'template', 'slug', [
+            "title" => "No Payment to Confirm",
+            "slug" => "no_payment_confirm",
+            "template" => 'ERROR: There is no payment sent with code [CODE]. Please contact Admin [ADMIN_PHONE]',
             "published" => true
         ]);
 

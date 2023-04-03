@@ -34,3 +34,8 @@ Feel free to make any suggestions or improvements to this module.
 PD77K63BLB Confirmed.You have received Ksh8,000.00 from JONH  MWANGI 0732329393 on 7/4/23 at 4:30 PM  New M-PESA balance is Ksh140,753.32. SAFARICOM ONLY CALLS YOU FROM 0722000000. To reverse, forward this message to 456.
 
 PD77K63BLBX Confirmed. on 12/11/09 at 5:34 AM Ksh100 received from Maina Ben 0712121212 Account Number 123ABC New Utility balance
+
+curl -X 'POST' 'http://127.0.0.1:8000/smsreader/incoming' \
+     -H 'content-type: application/json; charset=utf-8' \
+     -d $'{"from":"0713034569","text":"XXXYYYZZZ9 Confirmed. Ksh80.00 sent to MSEE WA CHIPO 0704444444 on 12/4/21 at 1:57 PM. New M-PESA","sentStamp":"1680492543","receivedStamp":"1680492543","sim":"SIM1"}'
+  

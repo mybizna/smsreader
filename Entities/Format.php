@@ -25,6 +25,8 @@ class Format extends BaseModel
         $table->char('slug', 255);
         $table->string('format');
         $table->string('fields_str');
+        $table->enum('action', ['payment', 'confirming', 'account', 'withdraw', 'others'])->default('others')->nullable();
+        $table->integer('ordering')->default(5);
         $table->tinyInteger('published')->default(true);
     }
 }

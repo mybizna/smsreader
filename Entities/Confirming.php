@@ -6,13 +6,13 @@ use Illuminate\Database\Schema\Blueprint;
 use Modules\Base\Classes\Migration;
 use Modules\Base\Entities\BaseModel;
 
-class Payment extends BaseModel
+class Confirming extends BaseModel
 {
 
-    protected $fillable = ['phone', 'code', 'name', 'format_id', 'incoming_id', 'partner_id',
+    protected $fillable = ['phone', 'code', 'name', 'format_id', 'incoming_id',
         'amount', 'account', 'date_sent', 'completed', 'successful'];
     public $migrationDependancy = ['smsreader_format', 'smsreader_incoming', 'partner'];
-    protected $table = "smsreader_payment";
+    protected $table = "smsreader_confirming";
 
     protected $can_delete = "false";
 
@@ -28,14 +28,11 @@ class Payment extends BaseModel
         $table->char('phone', 255);
         $table->char('code', 255);
         $table->char('name', 255);
-        $table->integer('format_id');
-        $table->integer('incoming_id');
-        $table->integer('partner_id');
-        $table->enum('waiting', ['start', 'phone', 'account'])->default('start')->nullable();
-        $table->decimal('amount', 20, 2);
-        $table->char('account', 255);
-        $table->char('request_type', 255);
         $table->datetime('date_sent');
+        $table->integer('format_id')->nullable();
+        $table->integer('incoming_id')->nullable();
+        $table->decimal('amount', 20, 2)->nullable();
+        $table->char('account', 255)->nullable();
         $table->tinyInteger('completed')->default(false);
         $table->tinyInteger('successful')->default(false);
     }
@@ -44,10 +41,6 @@ class Payment extends BaseModel
     {
         if (Migration::checkKeyExist('smsreader_payment', 'format_id')) {
             $table->foreign('format_id')->references('id')->on('smsreader_format')->nullOnDelete();
-        }
-
-        if (Migration::checkKeyExist('smsreader_payment', 'incoming_id')) {
-            $table->foreign('incoming_id')->references('id')->on('smsreader_incoming')->nullOnDelete();
         }
 
         if (Migration::checkKeyExist('smsreader_payment', 'partner_id')) {

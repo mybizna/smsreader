@@ -5,9 +5,7 @@ namespace Modules\Smsreader\Classes;
 use Modules\Account\Classes\Gateway as GatewayCls;
 use Modules\Account\Classes\Payment as PaymentCls;
 use Modules\Partner\Classes\Partner;
-use Modules\Partner\Entities\Partner as DBPartner;
 use Modules\Smsreader\Entities\Account;
-use Modules\Smsreader\Entities\Confirming;
 use Modules\Smsreader\Entities\Format;
 use Modules\Smsreader\Entities\Incoming;
 use Modules\Smsreader\Entities\Payment;
@@ -34,68 +32,91 @@ class Smsreader
 
         $partner_id = '';
 
-        $formatings = Format::where(['published' => true])->get();
+        $account = Format::where(['slug' => 'account'])->first();
+        $account_parts = [];
 
+        preg_match_all('/^' . $account->format . '/', preg_replace('/\s+/', ' ', $incoming->message), $account_parts, PREG_SET_ORDER);
+
+        if (isset($account_parts[0])) {
+            $partner = $partner_cls->getPartner($account_parts[0][1]);
+
+            if ($partner) {
+                $partner_id = $partner->id;
+
+                Account::updateOrCreate([
+                    'partner_id' => $partner->id,
+                    'account' => $account_parts[0][1],
+                    'txn' => $account_parts[0][2],
+                ]);
+
+                $payment = Payment::where('code', $account_parts[0][2])->first();
+
+                if ($payment) {
+                    $this->paymentSuccessful($payment, $partner);
+                }
+            }
+
+            $incoming->completed = true;
+            $incoming->is_payment = false;
+            $incoming->save();
+
+            return;
+        }
+
+        $is_payment = false;
+        $formatings = Format::where([['slug', '<>', 'account'], 'published' => true])->get();
         foreach ($formatings as $key => $formating) {
 
-            list($processed, $analysis) = $this->analyzeFormat($formating, $incoming);
+            $payment = $this->analyzeFormat($formating, $incoming);
 
-            if ($processed) {
+            if ($payment) {
 
-                if ($formating->action == "payment") {
-                    $payment = Payment::create($analysis);
-
-                    $this->processPayment($payment, $incoming);
-
-                    $incoming->is_payment = true;
-                }
-
-                if ($formating->action == "confirming") {
-
-                    $confirm = Confirming::create($analysis);
-
-                    $payment = Payment::where(['code' => $analysis['code']])->first();
-
-                    if ($payment) {
-                        if ($payment->phone == '') {
-                            $payment->phone = $incoming->phone;
-                        }
-
-                        $this->processPayment($payment, $incoming);
-
-                        $incoming->successful = true;
-                    } else {
-                        $this->sendMessage('no_payment_confirm', $confirm);
+                if ($payment->account == '') {
+                    $account = Account::where('txn', $payment->code)->first();
+                    if ($account) {
+                        $payment->account = $account->account;
                     }
-                    $incoming->completed = true;
                 }
-
-                if ($formating->action == "account") {
-
-                    $payment = Payment::where('phone', 'LIKE', '%' . substr($incoming->phone, -9) . '%')
-                        ->where('completed', false)
-                        ->first();
-
-                    if (isset($analysis['code'])) {
-                        $tmp_payment = Payment::where('code', $analysis['code'])
-                            ->where('completed', false)
-                            ->first();
-                        if ($tmp_payment) {
-                            $payment = $tmp_payment;
-                        }
-                    }
-
-                    $payment->account = $analysis['account'];
-
-                    $this->processPayment($payment, $incoming);
-
-                    $incoming->completed = true;
-                }
-
-                $incoming->save();
-
-                break;
+            } else {
+                $is_payment = true;
             }
+
+            if ($payment) {
+
+                if ($payment->account == '') {
+                    if ($payment->request_type == 'customer_not_found') {
+
+                        $this->sendMessage('customer_not_found_again', $payment);
+                        $payment->request_type = 'customer_not_found_again';
+                        $payment->save();
+                    } else {
+                        $this->sendMessage('customer_not_found', $payment);
+                        $payment->request_type = 'customer_not_found';
+                        $payment->save();
+                    }
+
+                } elseif ($payment->account) {
+
+                    $partner = $partner_cls->getPartner($payment->account);
+
+                    if ($partner) {
+                        $this->paymentSuccessful($payment, $partner);
+                    } else {
+                        if ($payment->request_type == 'customer_not_found' or $payment->request_type == 'customer_not_found_again') {
+                            $this->sendMessage('customer_not_found_again', $payment);
+                        } else {
+                            $this->sendMessage('customer_not_found', $payment);
+                        }}
+
+                    if ($payment->partner_id) {
+                        $this->sendMessage('payment_successful', $payment);
+                    }
+                }
+            }
+
+            $incoming->completed = true;
+            $incoming->is_payment = $is_payment;
+            $incoming->save();
 
         }
     }
@@ -152,71 +173,44 @@ class Smsreader
                 $analysis['account'] = $analysis['phone'];
             }
 
+            $names = array_reverse(explode(' ', $analysis['name']));
+            if (is_int($names[0])) {
+                return false;
+            }
+
             $datetime_str = date('Y-m-d H:i:s', strtotime($analysis['date'] . " " . $analysis['time']));
 
             $analysis['date_sent'] = $datetime_str;
 
-            return [true, $analysis];
+            return Payment::create($analysis);
 
         }
 
-        return [false, []];
+        return false;
 
-    }
-
-    protected function processPayment($payment, $incoming)
-    {
-        $search_partner_by_phone = \Config::get('smsreader.search_partner_by_phone');
-
-        $partner = false;
-        if ($search_partner_by_phone) {
-            $partner = DBPartner::where('id', $partner_id)->first();
-        } elseif ($payment->account) {
-            $partner = $partner_cls->getPartner($payment->account);
-        }
-
-        if ($partner) {
-
-            $this->paymentSuccessful($payment, $partner);
-
-            $incoming->completed = true;
-            $incoming->successful = true;
-            $incoming->save();
-
-            $this->sendMessage('payment_successful', $payment);
-
-        } else {
-            if ($payment->request_type == 'customer_not_found' or $payment->request_type == 'customer_not_found_again') {
-                $this->sendMessage('customer_not_found_again', $payment);
-            } else {
-                $this->sendMessage('customer_not_found', $payment);
-            }
-
-        }
     }
 
     protected function sendMessage($slug, $payment)
     {
+
         $admin_phone = \Config::get('core.company_phone');
 
-        $phone = $invoice_id = $note = $amount = $code = '';
+        $phone = $invoice_id = $note = $amount = '';
 
         if ($payment) {
-            $code = $payment->code ?? '';
             $account = $payment->account ?? '';
             $phone = $payment->phone ?? '';
             $note = $payment->note ?? '';
             $amount = $payment->amount ?? '';
         }
 
-        $message = 'Unknown issue please contact admin ' . $admin_phone;
+        $message = 'Unknown issue prease contact admin ' . $admin_phone;
 
         $template = Template::where(['slug' => $slug])->first();
 
         $message = $template->template;
 
         $message = str_replace('[ACCOUNT]', $account, $message);
-        $message = str_replace('[CODE]', $code, $message);
         $message = str_replace('[PHONE]', $phone, $message);
         $message = str_replace('[NOTE]', $note, $message);
         $message = str_replace('[AMOUNT]', $amount, $message);
@@ -228,11 +222,6 @@ class Smsreader
             'message' => $message,
             'date_sent' => date("Y-m-d H:i:s"),
         ]);
-
-        if ($payment instanceof Payment) {
-            $payment->request_type = $slug;
-            $payment->save();
-        }
     }
 
     protected function paymentSuccessful($payment, $partner)
@@ -243,7 +232,7 @@ class Smsreader
         $payment->partner_id = $partner->id;
         $payment->save();
 
-        $gateway = $gateway_cls->getGatewayBySlug('smsreader');
+        $gateway = $gateway_cls->getGatewayBySlug('mpesa');
         $amount = $payment->amount;
         $title = "Payment of $payment->amount from $payment->phone via $gateway->title ";
 

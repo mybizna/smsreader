@@ -32,6 +32,7 @@ class Incoming extends BaseModel
         $table->string('sim')->nullable();
         $table->integer('gateway_id')->nullable();
         $table->string('params')->nullable();
+        $table->enum('action', ['payment', 'confirming', 'account', 'withdraw', 'others'])->default('others')->nullable();
         $table->tinyInteger('is_payment')->default(false);
         $table->tinyInteger('completed')->default(false);
         $table->tinyInteger('successful')->default(false);

@@ -1,6 +1,6 @@
 <?php
 
-$this->add_menu("incoming", "smsreader", "Sms Reader", "/smsreader/admin/incoming", "fas fa-cogs", 5);
+$this->add_menu("sms", "smsreader", "Sms Reader", "/smsreader/admin/incoming", "fas fa-cogs", 5);
 
 $this->add_submenu("sms", "smsreader", "Incoming", "/smsreader/admin/incoming", 5);
 $this->add_submenu("sms", "smsreader", "Format", "/smsreader/admin/format", 5);
