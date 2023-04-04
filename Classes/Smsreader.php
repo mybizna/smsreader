@@ -92,6 +92,7 @@ class Smsreader
                     $incoming->completed = true;
                 }
 
+                $incoming->action = $formating->action;
                 $incoming->save();
 
                 break;
@@ -170,13 +171,14 @@ class Smsreader
 
         $partner = false;
         if ($search_partner_by_phone) {
-            $partner = DBPartner::where('id', $partner_id)->first();
+            $partner = DBPartner::where('phone', substr($payment->phone, -9))
+                ->orWhere('mobile', substr($payment->mobile, -9))
+                ->first();
         } elseif ($payment->account) {
             $partner = $partner_cls->getPartner($payment->account);
         }
 
         if ($partner) {
-
             $this->paymentSuccessful($payment, $partner);
 
             $incoming->completed = true;
@@ -191,7 +193,6 @@ class Smsreader
             } else {
                 $this->sendMessage('customer_not_found', $payment);
             }
-
         }
     }
 
