@@ -29,7 +29,7 @@ class Account extends BaseModel
     public function post_migration(Blueprint $table)
     {
 
-        if (Migration::checkKeyExist('smsreader_payment', 'partner_id')) {
+        if (Migration::checkKeyExist('smsreader_account', 'partner_id')) {
             $table->foreign('partner_id')->references('id')->on('partner')->nullOnDelete();
         }
     }
