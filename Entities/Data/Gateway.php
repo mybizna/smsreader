@@ -18,7 +18,7 @@ class Gateway
             "title" => "Smsreader",
             "slug" => "smsreader",
             "ledger_id" => $ledger_id,
-            "instruction" => "Send Money to:",
+            "instruction" => "Please send to Phone Number 0722XXXXXX and enter the MPesa Code in field below.",
             "module" => "Smsreader",
             "ordering" => 0,
             "is_default" => false,

@@ -5,6 +5,7 @@ namespace Modules\Smsreader\Http\Controllers;
 use Illuminate\Http\Request;
 use Modules\Base\Http\Controllers\BaseController;
 use Modules\Smsreader\Entities\Incoming;
+use Modules\Smsreader\Entities\Payment;
 
 class IncomingController extends BaseController
 {
@@ -29,6 +30,24 @@ class IncomingController extends BaseController
         }
 
         return response()->json(['status' => true, 'message' => 'SMS added successfully.']);
+    }
+
+    public function paymentVerification(Request $request)
+    {
+        $result = [];
+
+        $data = $request->all();
+
+        $result = ['status' => false, 'message' => 'Error: Payment does not exist.'];
+
+        $payment = Payment::where('code', $data['code_reference'])->first();
+        if ($payment) {
+            $result = ['status' => true, 'message' => 'SMS added successfully.'];
+
+        }
+
+        return response()->json($result);
+
     }
 
 }
