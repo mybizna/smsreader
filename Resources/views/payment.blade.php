@@ -27,7 +27,8 @@
     </div>
 
     <div style="text-align:center; margin-top:20px;">
-        <button id='send_direct_cancel_button' type="submit" name="view" value="send_direct_cancel_button_{{ $invoice->id }}"
+        <button id='send_direct_cancel_button' type="submit" name="view"
+            value="send_direct_cancel_button_{{ $invoice->id }}"
             class=" text-red-500 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
             Cancel
         </button>
@@ -35,9 +36,9 @@
 
     <input id="code_reference_url" type="hidden" name="code_reference_url"
         value="{{ secure_url(route('smsreader_payment_verification')) }}" />
-        <input id="code_reference_isp_access_thankyou" type="hidden" name="code_reference_isp_access_thankyou"
+    <input id="code_reference_isp_access_thankyou" type="hidden" name="code_reference_isp_access_thankyou"
         value="{{ secure_url(route('isp_access_thankyou')) }}" />
-        <input id="code_reference_isp_access_canceled" type="hidden" name="code_reference_isp_access_canceled"
+    <input id="code_reference_isp_access_canceled" type="hidden" name="code_reference_isp_access_canceled"
         value="{{ secure_url(route('isp_access_canceled')) }}" />
 
 </div>
@@ -85,7 +86,7 @@
             .then((data) => {
                 if (data.status) {
                     window.location.href = thankyou;
-                }else{
+                } else {
                     alert(data.message);
                 }
             })
