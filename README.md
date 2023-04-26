@@ -1,22 +1,23 @@
 # Mybizna ERP SMS Sending Module
-This module allows users of the Mybizna ERP platform to easily send SMS messages to customers and employees directly from the platform.
 
+This is a SMS reader application written in PHP that is part of the MyBizna ERP system. The application is designed to parse incoming SMS messages and extract information related to payments and tickets. The extracted information is then processed and stored in the ERP system for easy viewing and analysis.
 
+## Installation
 
-## Getting Started
-- Sign up for an SMS gateway service such as Twilio and obtain an API key.
-- Configure the API key within the Mybizna ERP platform.
-- Create groups of contacts within the "Contacts" section of the Mybizna ERP platform to send SMS messages to specific groups of people.
-- Use the "SMS" section of the Mybizna ERP platform to compose and send messages to individual contacts or groups.
+```
+composer require mybizna/smsreader
+
+```
+
+## Features
+- Parses incoming SMS messages to extract payment and ticket information.
+- Supports multiple payment methods, including bank transfers and mobile payments.
+- Automatically organizes extracted information into a tabular format for easy viewing and analysis
+- Provides basic visualizations of payment and ticket data
 
 ## Requirements
 Mybizna ERP version 1.0 or above
 
-## An SMS gateway service with an API key
-Usage
-To use this module, you need to have an instance of Mybizna ERP and API key for a SMS gateway service.
-This module is compatible with Mybizna ERP version 1.0 and above
-You can access the source code of the module on the company's Github repository.
 ## Support
 If you have any questions or need assistance, please contact our support team. We're always happy to help!
 
