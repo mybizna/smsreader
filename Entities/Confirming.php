@@ -39,11 +39,11 @@ class Confirming extends BaseModel
 
     public function post_migration(Blueprint $table)
     {
-        if (Migration::checkKeyExist('smsreader_payment', 'format_id')) {
+        if (Migration::checkKeyExist('smsreader_confirming', 'format_id')) {
             $table->foreign('format_id')->references('id')->on('smsreader_format')->nullOnDelete();
         }
 
-        if (Migration::checkKeyExist('smsreader_payment', 'partner_id')) {
+        if (Migration::checkKeyExist('smsreader_confirming', 'partner_id')) {
             $table->foreign('partner_id')->references('id')->on('partner')->nullOnDelete();
         }
     }
