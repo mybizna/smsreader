@@ -6,7 +6,6 @@ This is a SMS reader application written in PHP that is part of the MyBizna ERP 
 
 ```
 composer require mybizna/smsreader
-
 ```
 
 ## Features
@@ -45,4 +44,4 @@ How to test SMSes.
 curl -X 'POST' 'http://127.0.0.1:8000/smsreader/incoming' \
      -H 'content-type: application/json; charset=utf-8' \
      -d $'{"from":"0713034569","text":"XXXYYYZZZ9 Confirmed. Ksh80.00 sent to MSEE WA CHIPO 0704444444 on 12/4/21 at 1:57 PM. New M-PESA","sentStamp":"1680492543","receivedStamp":"1680492543","sim":"SIM1"}'
-  ```
+```
