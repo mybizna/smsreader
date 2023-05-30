@@ -13,6 +13,7 @@ use Modules\Smsreader\Entities\Payment;
 class IncomingController extends BaseController
 {
 
+
     public function incoming(Request $request)
     {
         $result = [];
@@ -20,14 +21,19 @@ class IncomingController extends BaseController
         $data = $request->all();
 
         try {
-            Incoming::create([
-                'phone' => (isset($data['from'])) ? $data['from'] : '',
-                'message' => (isset($data['text'])) ? $data['text'] : '',
-                'date_sent' => (isset($data['sentStamp'])) ? date("Y-m-d H:i:s", $data['sentStamp']) : '',
-                'date_received' => (isset($data['receivedStamp'])) ? date("Y-m-d H:i:s", $data['receivedStamp']) : '',
-                'sim' => (isset($data['sim'])) ? $data['sim'] : '',
-            ]);
-        } catch (\Throwable$th) {
+            $phone = $data['from'] ?? $data['sender'] ?? $data['phone'] ?? '';
+            $message = $data['message'] ?? $data['text'] ?? '';
+
+            if ($message != '') {
+                Incoming::create([
+                    'phone' => $phone,
+                    'message' => $message,
+                    'date_sent' => (isset($data['sentStamp'])) ? date("Y-m-d H:i:s", $data['sentStamp']) : '',
+                    'date_received' => (isset($data['receivedStamp'])) ? date("Y-m-d H:i:s", $data['receivedStamp']) : '',
+                    'sim' => (isset($data['sim'])) ? $data['sim'] : '',
+                ]);
+            }
+        } catch (\Throwable $th) {
             throw $th;
         }
 
