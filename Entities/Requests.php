@@ -22,7 +22,7 @@ class Requests extends BaseModel
     public function migration(Blueprint $table)
     {
         $table->increments('id');
-        $table->integer('payment_id');
+        $table->foreignId('payment_id');
         $table->char('phone', 255);
         $table->char('slug_str', 255);
         $table->string('message');
@@ -31,9 +31,7 @@ class Requests extends BaseModel
 
     public function post_migration(Blueprint $table)
     {
-        if (Migration::checkKeyExist('smsreader_requests', 'payment_id')) {
-            $table->foreign('payment_id')->references('id')->on('smsreader_payment')->nullOnDelete();
-        }
+        Migration::addForeign($table, 'smsreader_payment', 'payment_id');
     }
 
 }

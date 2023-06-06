@@ -29,8 +29,8 @@ class Confirming extends BaseModel
         $table->char('code', 255);
         $table->char('name', 255);
         $table->datetime('date_sent');
-        $table->integer('format_id')->nullable();
-        $table->integer('incoming_id')->nullable();
+        $table->foreignId('format_id')->nullable();
+        $table->foreignId('incoming_id')->nullable();
         $table->decimal('amount', 20, 2)->nullable();
         $table->char('account', 255)->nullable();
         $table->tinyInteger('completed')->default(false);
@@ -39,12 +39,7 @@ class Confirming extends BaseModel
 
     public function post_migration(Blueprint $table)
     {
-        if (Migration::checkKeyExist('smsreader_confirming', 'format_id')) {
-            $table->foreign('format_id')->references('id')->on('smsreader_format')->nullOnDelete();
-        }
-
-        if (Migration::checkKeyExist('smsreader_confirming', 'partner_id')) {
-            $table->foreign('partner_id')->references('id')->on('partner')->nullOnDelete();
-        }
+        Migration::addForeign($table, 'smsreader_format', 'format_id');
+        Migration::addForeign($table, 'partner', 'incoming_id');
     }
 }

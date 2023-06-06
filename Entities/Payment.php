@@ -28,9 +28,9 @@ class Payment extends BaseModel
         $table->char('phone', 255);
         $table->char('code', 255);
         $table->char('name', 255);
-        $table->integer('format_id');
-        $table->integer('incoming_id');
-        $table->integer('partner_id');
+        $table->foreignId('format_id');
+        $table->foreignId('incoming_id');
+        $table->foreignId('partner_id');
         $table->enum('waiting', ['start', 'phone', 'account'])->default('start')->nullable();
         $table->decimal('amount', 20, 2);
         $table->char('account', 255);
@@ -42,16 +42,8 @@ class Payment extends BaseModel
 
     public function post_migration(Blueprint $table)
     {
-        if (Migration::checkKeyExist('smsreader_payment', 'format_id')) {
-            $table->foreign('format_id')->references('id')->on('smsreader_format')->nullOnDelete();
-        }
-
-        if (Migration::checkKeyExist('smsreader_payment', 'incoming_id')) {
-            $table->foreign('incoming_id')->references('id')->on('smsreader_incoming')->nullOnDelete();
-        }
-
-        if (Migration::checkKeyExist('smsreader_payment', 'partner_id')) {
-            $table->foreign('partner_id')->references('id')->on('partner')->nullOnDelete();
-        }
+        Migration::addForeign($table, 'smsreader_format', 'format_id');
+        Migration::addForeign($table, 'smsreader_incoming', 'incoming_id');
+        Migration::addForeign($table, 'partner', 'partner_id');
     }
 }

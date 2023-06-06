@@ -30,7 +30,7 @@ class Incoming extends BaseModel
         $table->datetime('date_sent')->nullable();
         $table->datetime('date_received')->nullable();
         $table->string('sim')->nullable();
-        $table->integer('gateway_id')->nullable();
+        $table->foreignId('gateway_id')->nullable();
         $table->string('params')->nullable();
         $table->enum('action', ['payment', 'confirming', 'account', 'withdraw', 'others'])->default('others')->nullable();
         $table->tinyInteger('is_payment')->default(false);
@@ -40,9 +40,7 @@ class Incoming extends BaseModel
 
     public function post_migration(Blueprint $table)
     {
-        if (Migration::checkKeyExist('smsreader_incoming', 'gateway_id')) {
-            $table->foreign('gateway_id')->references('id')->on('sms_gateway')->nullOnDelete();
-        }
+        Migration::addForeign($table, 'sms_gateway', 'gateway_id');
     }
 
 }

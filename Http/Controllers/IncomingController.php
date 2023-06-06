@@ -2,6 +2,7 @@
 
 namespace Modules\Smsreader\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Modules\Account\Classes\Gateway as ClsGateway;
 use Modules\Account\Classes\Payment as ClsPayment;
@@ -13,7 +14,6 @@ use Modules\Smsreader\Entities\Payment;
 class IncomingController extends BaseController
 {
 
-
     public function incoming(Request $request)
     {
         $result = [];
@@ -23,13 +23,31 @@ class IncomingController extends BaseController
         try {
             $phone = $data['from'] ?? $data['sender'] ?? $data['phone'] ?? '';
             $message = $data['message'] ?? $data['text'] ?? '';
+            $date_sent_str = $data['sentStamp'] ?? $data['date_sent'] ?? $data['datesent'] ?? '';
+            $date_received_str = $data['receivedStamp'] ?? $data['timestamp'] ?? '';
+
+            $date_sent = $date_received = null;
+
+            if ($date_sent_str != '') {
+                [$date, $time] = explode(' ', $date_sent_str);
+                $carbonDate = Carbon::createFromFormat('M/d/Y', $date);
+                $carbonTime = Carbon::parse($time);
+                $date_sent = $carbonDate->format('Y-m-d') . ' ' . $carbonTime->format('H:i:s');
+            }
+
+            if ($date_received_str != '') {
+                [$date, $time] = explode(' ', $date_received_str);
+                $carbonDate = Carbon::createFromFormat('M/d/Y', $date);
+                $carbonTime = Carbon::parse($time);
+                $date_received = $carbonDate->format('Y-m-d') . ' ' . $carbonTime->format('H:i:s');
+            }
 
             if ($message != '') {
                 Incoming::create([
                     'phone' => $phone,
                     'message' => $message,
-                    'date_sent' => (isset($data['sentStamp'])) ? date("Y-m-d H:i:s", $data['sentStamp']) : '',
-                    'date_received' => (isset($data['receivedStamp'])) ? date("Y-m-d H:i:s", $data['receivedStamp']) : '',
+                    'date_sent' => $date_sent,
+                    'date_received' => $date_received,
                     'sim' => (isset($data['sim'])) ? $data['sim'] : '',
                 ]);
             }
