@@ -33,9 +33,9 @@ class Incoming extends BaseModel
         $table->foreignId('gateway_id')->nullable();
         $table->string('params')->nullable();
         $table->enum('action', ['payment', 'confirming', 'account', 'withdraw', 'others'])->default('others')->nullable();
-        $table->tinyInteger('is_payment')->default(false);
-        $table->tinyInteger('completed')->default(false);
-        $table->tinyInteger('successful')->default(false);
+        $table->tinyInteger('is_payment')->nullable()->default(0);
+        $table->tinyInteger('completed')->nullable()->default(0);
+        $table->tinyInteger('successful')->nullable()->default(0);
     }
 
     public function post_migration(Blueprint $table)

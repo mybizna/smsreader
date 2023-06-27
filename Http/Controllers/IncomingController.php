@@ -8,11 +8,17 @@ use Modules\Account\Classes\Gateway as ClsGateway;
 use Modules\Account\Classes\Payment as ClsPayment;
 use Modules\Account\Entities\Invoice;
 use Modules\Base\Http\Controllers\BaseController;
+use Modules\Smsreader\Classes\Smsreader;
 use Modules\Smsreader\Entities\Incoming;
 use Modules\Smsreader\Entities\Payment;
 
 class IncomingController extends BaseController
 {
+    public function incomingProcessor(Request $request)
+    {
+        $smsreader = new Smsreader();
+        $smsreader->processIncomings();
+    }
 
     public function incoming(Request $request)
     {

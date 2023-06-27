@@ -2,6 +2,7 @@
 
 namespace Modules\Smsreader\Classes;
 
+use Carbon\Carbon;
 use Modules\Account\Classes\Gateway as GatewayCls;
 use Modules\Account\Classes\Payment as PaymentCls;
 use Modules\Partner\Classes\Partner;
@@ -16,16 +17,20 @@ use Modules\Smsreader\Entities\Template;
 
 class Smsreader
 {
-
-    public function processIncoming($incoming)
+    public function processIncomings()
     {
-        $this->processFormat($incoming);
-
         $incomings = Incoming::where(['completed' => false])->get();
 
         foreach ($incomings as $key => $incoming) {
             $this->processFormat($incoming);
         }
+    }
+
+    public function processIncoming($incoming)
+    {
+        $this->processFormat($incoming);
+        $this->processIncomings($incoming);
+
     }
 
     protected function processFormat($incoming)
@@ -39,18 +44,16 @@ class Smsreader
         foreach ($formatings as $key => $formating) {
 
             list($processed, $analysis) = $this->analyzeFormat($formating, $incoming);
-
+           
             if ($processed) {
-
+            
                 if ($formating->action == "payment") {
                     $payment = Payment::create($analysis);
 
                     $this->processPayment($payment, $incoming);
-
+                
                     $incoming->is_payment = true;
-                }
-
-                if ($formating->action == "confirming") {
+                } else if ($formating->action == "confirming") {
 
                     $confirm = Confirming::create($analysis);
 
@@ -67,10 +70,8 @@ class Smsreader
                     } else {
                         $this->sendMessage('no_payment_confirm', $confirm);
                     }
-                    $incoming->completed = true;
-                }
 
-                if ($formating->action == "account") {
+                } else if ($formating->action == "account") {
 
                     $payment = Payment::where('phone', 'LIKE', '%' . substr($incoming->phone, -9) . '%')
                         ->where('completed', false)
@@ -89,16 +90,17 @@ class Smsreader
 
                     $this->processPayment($payment, $incoming);
 
-                    $incoming->completed = true;
                 }
-
-                $incoming->action = $formating->action;
-                $incoming->save();
 
                 break;
             }
 
         }
+        $incoming->completed = true;
+        $incoming->action = $formating->action;
+        $incoming->save();
+
+
     }
 
     protected function analyzeFormat($formating, $incoming)
@@ -123,11 +125,7 @@ class Smsreader
                 }
 
                 if ($field == 'phone') {
-                    $phone = $message_parts[0][$num];
-                    $suffix = substr($phone, -9);
-                    $prefix = 254;
-                    $phone = strval($prefix) . strval($suffix);
-                    $analysis['phone'] = $phone;
+                    $analysis['phone'] = $message_parts[0][$num];
                 }
                 if ($field == 'code') {
                     $analysis['code'] = $message_parts[0][$num];
@@ -153,9 +151,39 @@ class Smsreader
                 $analysis['account'] = $analysis['phone'];
             }
 
-            $datetime_str = date('Y-m-d H:i:s', strtotime($analysis['date'] . " " . $analysis['time']));
+            $date_sent = date('Y-m-d');
 
-            $analysis['date_sent'] = $datetime_str;
+            if ($analysis['date'] != '') {
+                $date = null;
+
+                $dateFormats = [
+                    'm/d/y', 'm/d/Y', 'd/m/y', 'd/m/Y',
+                    'm-d-y', 'm-d-Y', 'd-m-y', 'd-m-Y',
+                ];
+
+                foreach ($dateFormats as $format) {
+                    $parsedDate = Carbon::createFromFormat($format, $analysis['date']);
+    
+                    if ($parsedDate !== false && !is_null($parsedDate)) {
+                        $date = $parsedDate;
+                        break;
+                    }
+                }
+
+                if ($date !== null) {
+                    // The date was successfully parsed
+                    $date_sent =  $date->format('Y-m-d'); // Output the parsed date in a specific format
+                    
+                    if ($analysis['time'] != '') {
+                        $carbonTime = Carbon::parse($analysis['time']);
+                        $date_sent = $date_sent . ' ' . $carbonTime->format('H:i:s');
+                    }else{
+                        $date_sent = $date_sent . ' 00:00:00';
+                    }
+                }
+
+                $analysis['date_sent'] = $date_sent;
+            }
 
             return [true, $analysis];
 

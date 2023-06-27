@@ -5,12 +5,11 @@
             <div class="col-md-6">
                 <FormKit v-model="model.id" label="Id" id="id" type="hidden" validation="required" />
                 <FormKit v-model="model.title" label="Title" id="title" type="text" validation="required" />
-                <FormKit v-model="model.format" label="Format" id="format" type="text" validation="required" />
-                <FormKit v-model="model.fields_str" label="Dields Str" id="fields_str" type="text" validation="required" />
-                <FormKit v-model="model.published" label="Published" id="published" type="text" validation="required" />
+                <FormKit v-model="model.format" label="Format" id="format" type="textarea" validation="required" />
             </div>
             <div class="col-md-6">
-
+                <FormKit v-model="model.fields_str" label="Dields Str" id="fields_str" type="text" validation="required" />
+                <FormKit v-model="model.published" label="Published" id="published" type="text" validation="required" />
             </div>
         </div>
 

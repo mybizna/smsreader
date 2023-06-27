@@ -33,8 +33,8 @@ class Confirming extends BaseModel
         $table->foreignId('incoming_id')->nullable();
         $table->decimal('amount', 20, 2)->nullable();
         $table->char('account', 255)->nullable();
-        $table->tinyInteger('completed')->default(false);
-        $table->tinyInteger('successful')->default(false);
+        $table->tinyInteger('completed')->nullable()->default(0);
+        $table->tinyInteger('successful')->nullable()->default(0);
     }
 
     public function post_migration(Blueprint $table)

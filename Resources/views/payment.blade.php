@@ -10,7 +10,7 @@
     <div class="mb-4 text-center">
         <br>
         <label class="block text-gray-700 text-sm font-bold mb-2" for="code_reference">
-            Code or Reference No.
+            Enter Phone, Code or Reference No.
         </label>
         <input
             class="shadow appearance-none border rounded w-72 p-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"

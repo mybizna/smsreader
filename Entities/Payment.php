@@ -36,8 +36,8 @@ class Payment extends BaseModel
         $table->char('account', 255);
         $table->char('request_type', 255);
         $table->datetime('date_sent');
-        $table->tinyInteger('completed')->default(false);
-        $table->tinyInteger('successful')->default(false);
+        $table->tinyInteger('completed')->nullable()->default(0);
+        $table->tinyInteger('successful')->nullable()->default(0);
     }
 
     public function post_migration(Blueprint $table)
