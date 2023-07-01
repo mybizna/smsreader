@@ -7,5 +7,10 @@ return [
         "value" => true,
         "category" => "Smsreader",
     ],
- 
+    'is_active' => [
+        "title" => "Is Active",
+        "type" => "switch",
+        "value" => true,
+        "category" => "Smsreader",
+    ],
 ];

@@ -25,10 +25,16 @@ class Gateway
         $data['send_instruction'] = \Config::get('smsreader.send_instruction');
 
         $tabs = [];
+
+        
         $send_direct = view('smsreader::payment', $data)->toHtml();
-        $tabs = array(
-            ['title' => 'Send Direct', 'slug' => 'SendDirect', 'gateway' => $gateway, 'html' => $send_direct],
-        );
+        
+        $is_active = \Config::get('smsreader.is_active');
+        if ($is_active) {
+            $tabs = array(
+                ['title' => 'Send Direct', 'slug' => 'SendDirect', 'gateway' => $gateway, 'html' => $send_direct],
+            );
+        }
 
         return $tabs;
     }
