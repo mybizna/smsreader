@@ -6,18 +6,32 @@ use Illuminate\Database\Schema\Blueprint;
 use Modules\Base\Classes\Migration;
 use Modules\Base\Entities\BaseModel;
 
-use Modules\Core\Classes\Views\ListTable;
-use Modules\Core\Classes\Views\FormBuilder;
+use Modules\Base\Classes\Views\ListTable;
+use Modules\Base\Classes\Views\FormBuilder;
 
 class Requests extends BaseModel
 {
-
+    /**
+     * The fields that can be filled
+     * @var array<string>
+     */
     protected $fillable = ['payment_id', 'phone', 'message', 'date_sent'];
-    public $migrationDependancy = ['smsreader_template'];
+
+    /**
+     * List of tables names that are need in this model during migration.
+     * @var array<string>
+     */
+    public array $migrationDependancy = ['smsreader_template'];
+
+    /**
+     * The table associated with the model.
+     * @var string
+     */
     protected $table = "smsreader_requests";
 
 
-    public function listTable(){
+    public function  listTable(): ListTable
+    {
         // listing view fields
         $fields = new ListTable();
 
@@ -30,7 +44,8 @@ class Requests extends BaseModel
 
     }
     
-    public function formBuilder(){
+    public function formBuilder(): FormBuilder
+{
         // listing view fields
         $fields = new FormBuilder();
 
@@ -43,7 +58,8 @@ class Requests extends BaseModel
 
     }
 
-    public function filter(){
+    public function filter(): FormBuilder
+    {
         // listing view fields
         $fields = new FormBuilder();
 
@@ -56,7 +72,7 @@ class Requests extends BaseModel
 
     }
     /**
-     * List of fields for managing postings.
+     * List of fields to be migrated to the datebase when creating or updating model during migration.
      *
      * @param Blueprint $table
      * @return void

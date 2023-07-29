@@ -7,14 +7,24 @@ use Modules\Base\Classes\Datasetter;
 
 class Gateway
 {
-
+    /**
+     * Set ordering of the Class to be migrated.
+     * @var int
+     */
     public $ordering = 7;
 
-    public function data(Datasetter $datasetter)
+    /**
+     * Run the database seeds with system default records.
+     *
+     * @param Datasetter $datasetter
+     *
+     * @return void
+     */
+    public function data(Datasetter $datasetter): void
     {
         $ledger_id = DB::table('account_ledger')->where('slug', 'smsreader')->value('id');
         $currency_id = DB::table('core_currency')->where('code', 'KES')->value('id');
-        
+
         $datasetter->add_data('account', 'gateway', 'slug', [
             "title" => "Smsreader",
             "slug" => "smsreader",
@@ -25,10 +35,8 @@ class Gateway
             "ordering" => 5,
             "is_default" => false,
             "is_hidden" => false,
-            "published" => true
+            "published" => true,
         ]);
-        
-    
 
     }
 }

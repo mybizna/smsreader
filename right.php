@@ -1,5 +1,7 @@
 <?php
 
+/** @var \Modules\Base\Classes\Fetch\Rights $this */
+
 $this->add_right("smsreader", "account", "administrator", view:true, add:true, edit:true, delete:true);
 $this->add_right("smsreader", "account", "manager", view:true, add:true, edit:true, delete:true);
 $this->add_right("smsreader", "account", "supervisor", view:true, add:true, edit:true, delete:true);

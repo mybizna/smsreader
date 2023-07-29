@@ -7,10 +7,20 @@ use Illuminate\Support\Facades\DB;
 
 class Template
 {
-
+    /**
+     * Set ordering of the Class to be migrated.
+     * @var int
+     */
     public $ordering = 4;
 
-    public function data(Datasetter $datasetter)
+
+/**
+ * Run the database seeds with system default records.
+ *
+ * @return void
+ */
+
+    public function data(Datasetter $datasetter): void
     {
 
         $datasetter->add_data('smsreader', 'template', 'slug', [

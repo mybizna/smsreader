@@ -3,14 +3,23 @@
 namespace Modules\Smsreader\Entities\Data;
 
 use Modules\Base\Classes\Datasetter;
-use Illuminate\Support\Facades\DB;
 
 class Format
 {
-
+    /**
+     * Set ordering of the Class to be migrated.
+     * @var int
+     */
     public $ordering = 4;
 
-    public function data(Datasetter $datasetter)
+    /**
+     * Run the database seeds with system default records.
+     *
+     * @param Datasetter $datasetter
+     *
+     * @return void
+     */
+    public function data(Datasetter $datasetter): void
     {
 
         $datasetter->add_data('smsreader', 'format', 'slug', [
@@ -19,8 +28,8 @@ class Format
             "format" => '(.*) Confirmed. on (.*) at (.*) (.*) received from (.*) (.*).  Account Number (.*) New Utility balance',
             "fields_str" => 'code, date,time,amount,name,phone,account',
             "action" => 'payment',
-            "ordering"=> 1,
-            "published" => true
+            "ordering" => 1,
+            "published" => true,
         ]);
 
         $datasetter->add_data('smsreader', 'format', 'slug', [
@@ -29,8 +38,8 @@ class Format
             "format" => '(.*) Confirmed.You have received (.*) from (.*) (.*) on (.*) at (.*) New M-PESA balance',
             "fields_str" => 'code,amount,name,phone,date,time',
             "action" => 'payment',
-            "ordering"=> 1,
-            "published" => true
+            "ordering" => 1,
+            "published" => true,
         ]);
 
         $datasetter->add_data('smsreader', 'format', 'slug', [
@@ -39,8 +48,8 @@ class Format
             "format" => '(.*) Confirmed.(.*) sent to (.*) (.*) on (.*) at (.*). New M-PESA',
             "fields_str" => 'code,amount,name,phone,date,time',
             "action" => 'confirming',
-            "ordering"=> 1,
-            "published" => true
+            "ordering" => 1,
+            "published" => true,
         ]);
 
         $datasetter->add_data('smsreader', 'format', 'slug', [
@@ -49,8 +58,8 @@ class Format
             "format" => '(.*) Confirmed.(.*) sent to (.*) on (.*) at (.*). New M-PESA',
             "fields_str" => 'code,amount,name,date,time',
             "action" => 'confirming',
-            "ordering"=> 2,
-            "published" => true
+            "ordering" => 2,
+            "published" => true,
         ]);
 
         $datasetter->add_data('smsreader', 'format', 'slug', [
@@ -59,8 +68,8 @@ class Format
             "format" => '(.*) Confirmed.(.*) paid to (.*) on (.*) at (.*). New M-PESA',
             "fields_str" => 'code,amount,name,date,time',
             "action" => 'confirming',
-            "ordering"=> 1,
-            "published" => true
+            "ordering" => 1,
+            "published" => true,
         ]);
 
         $datasetter->add_data('smsreader', 'format', 'slug', [
@@ -69,8 +78,8 @@ class Format
             "format" => 'ACCOUNT (.*) TXN (.*)',
             "fields_str" => 'account,code',
             "action" => 'account',
-            "ordering"=> 2,
-            "published" => true
+            "ordering" => 2,
+            "published" => true,
         ]);
 
         $datasetter->add_data('smsreader', 'format', 'slug', [
@@ -79,8 +88,8 @@ class Format
             "format" => 'ACCOUNT (.*)',
             "fields_str" => 'account',
             "action" => 'account',
-            "ordering"=> 2,
-            "published" => true
+            "ordering" => 2,
+            "published" => true,
         ]);
 
     }
