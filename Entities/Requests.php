@@ -13,22 +13,30 @@ class Requests extends BaseModel
 {
     /**
      * The fields that can be filled
+     * 
      * @var array<string>
      */
     protected $fillable = ['payment_id', 'phone', 'message', 'date_sent'];
 
     /**
      * List of tables names that are need in this model during migration.
+     * 
      * @var array<string>
      */
     public array $migrationDependancy = ['smsreader_template'];
 
     /**
      * The table associated with the model.
+     * 
      * @var string
      */
     protected $table = "smsreader_requests";
 
+    /**
+     * Function for defining list of fields in table view.
+     * 
+     * @return ListTable
+     */
 
     public function  listTable(): ListTable
     {
@@ -43,6 +51,12 @@ class Requests extends BaseModel
         return $fields;
 
     }
+
+    /**
+     * Function for defining list of fields in form view.
+     * 
+     * @return FormBuilder
+     */
     
     public function formBuilder(): FormBuilder
 {
@@ -58,6 +72,11 @@ class Requests extends BaseModel
 
     }
 
+    /**
+     * Function for defining list of fields in filter view.
+     * 
+     * @return FormBuilder
+     */
     public function filter(): FormBuilder
     {
         // listing view fields
@@ -77,7 +96,7 @@ class Requests extends BaseModel
      * @param Blueprint $table
      * @return void
      */
-    public function migration(Blueprint $table)
+    public function migration(Blueprint $table): void
     {
         $table->increments('id');
         $table->foreignId('payment_id');
@@ -87,7 +106,15 @@ class Requests extends BaseModel
         $table->datetime('date_sent');
     }
 
-    public function post_migration(Blueprint $table)
+
+    /**
+     * Handle post migration processes for adding foreign keys.
+     *
+     * @param Blueprint $table
+     *
+     * @return void
+     */
+    public function post_migration(Blueprint $table): void
     {
         Migration::addForeign($table, 'smsreader_payment', 'payment_id');
     }

@@ -4,37 +4,46 @@ namespace Modules\Smsreader\Entities;
 
 use Illuminate\Database\Schema\Blueprint;
 use Modules\Base\Classes\Migration;
-use Modules\Base\Entities\BaseModel;
 use Modules\Base\Classes\Views\FormBuilder;
 use Modules\Base\Classes\Views\ListTable;
+use Modules\Base\Entities\BaseModel;
 
 class Incoming extends BaseModel
 {
     /**
      * The fields that can be filled
+     *
      * @var array<string>
      */
     protected $fillable = ['phone', 'message', 'date_sent', 'params', 'gateway_id', 'is_payment', 'completed', 'successful'];
-    
+
     /**
      * List of tables names that are need in this model during migration.
+     *
      * @var array<string>
      */
     public array $migrationDependancy = ['sms_gateway'];
 
     /**
      * The table associated with the model.
+     *
      * @var string
      */
     protected $table = "smsreader_incoming";
 
     /**
      * Determine if the model should be deleted.
-     * @var string
+     *
+     * @var bool
      */
-    protected $can_delete = "false";
+    protected $can_delete = false;
 
-    public function  listTable(): ListTable
+    /**
+     * Function for defining list of fields in table view.
+     *
+     * @return ListTable
+     */
+    public function listTable(): ListTable
     {
         // listing view fields
         $fields = new ListTable();
@@ -52,7 +61,12 @@ class Incoming extends BaseModel
 
     }
 
-    public function formBuilder()
+    /**
+     * Function for defining list of fields in form view.
+     * 
+     * @return FormBuilder
+     */
+    public function formBuilder(): FormBuilder
     {
         // listing view fields
         $fields = new FormBuilder();
@@ -70,6 +84,11 @@ class Incoming extends BaseModel
 
     }
 
+    /**
+     * Function for defining list of fields in filter view.
+     * 
+     * @return FormBuilder
+     */
     public function filter(): FormBuilder
     {
         // listing view fields
@@ -91,7 +110,7 @@ class Incoming extends BaseModel
      * @param Blueprint $table
      * @return void
      */
-    public function migration(Blueprint $table)
+    public function migration(Blueprint $table): void
     {
         $table->increments('id');
         $table->char('phone', 255);
@@ -107,7 +126,14 @@ class Incoming extends BaseModel
         $table->tinyInteger('successful')->nullable()->default(0);
     }
 
-    public function post_migration(Blueprint $table)
+    /**
+     * Handle post migration processes for adding foreign keys.
+     *
+     * @param Blueprint $table
+     *
+     * @return void
+     */
+    public function post_migration(Blueprint $table): void
     {
         Migration::addForeign($table, 'sms_gateway', 'gateway_id');
     }

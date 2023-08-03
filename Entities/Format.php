@@ -3,31 +3,37 @@
 namespace Modules\Smsreader\Entities;
 
 use Illuminate\Database\Schema\Blueprint;
-use Modules\Base\Entities\BaseModel;
 use Modules\Base\Classes\Views\FormBuilder;
 use Modules\Base\Classes\Views\ListTable;
+use Modules\Base\Entities\BaseModel;
 
 class Format extends BaseModel
 {
     /**
      * The fields that can be filled
+     *
      * @var array<string>
      */
     protected $fillable = ['title', 'slug', 'format', 'fields_str', 'published'];
 
     /**
      * List of tables names that are need in this model during migration.
+     *
      * @var array<string>
      */
     public array $migrationDependancy = [];
 
     /**
-     * The table associated with the model.
-     * @var string
+     * The table associated with the modelc string
      */
     protected $table = "smsreader_format";
 
-    public function  listTable(): ListTable
+    /**
+     * Function for defining list of fields in table view.
+     *
+     * @return ListTable
+     */
+    public function listTable(): ListTable
     {
         // listing view fields
         $fields = new ListTable();
@@ -42,6 +48,11 @@ class Format extends BaseModel
 
     }
 
+    /**
+     * Function for defining list of fields in form view.
+     * 
+     * @return FormBuilder
+     */
     public function formBuilder(): FormBuilder
     {
         // listing view fields
@@ -57,6 +68,11 @@ class Format extends BaseModel
 
     }
 
+    /**
+     * Function for defining list of fields in filter view.
+     * 
+     * @return FormBuilder
+     */
     public function filter(): FormBuilder
     {
         // listing view fields
@@ -77,7 +93,7 @@ class Format extends BaseModel
      * @param Blueprint $table
      * @return void
      */
-    public function migration(Blueprint $table)
+    public function migration(Blueprint $table): void
     {
         $table->increments('id');
         $table->char('title', 255);
