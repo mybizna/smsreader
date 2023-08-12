@@ -59,7 +59,7 @@ class Incoming extends BaseModel
         $fields->name('message')->type('textarea')->ordering(true);
         $fields->name('date_sent')->type('date')->ordering(true);
         $fields->name('params')->type('text')->ordering(true);
-        $fields->name('gateway_id')->type('recordpicker')->table('sms_gateway')->ordering(true);
+        $fields->name('gateway_id')->type('recordpicker')->table(['sms', 'gateway'])->ordering(true);
         $fields->name('is_payment')->type('switch')->ordering(true);
         $fields->name('completed')->type('switch')->ordering(true);
         $fields->name('successful')->type('switch')->ordering(true);
@@ -82,7 +82,7 @@ class Incoming extends BaseModel
         $fields->name('message')->type('textarea')->group('w-1/2');
         $fields->name('date_sent')->type('date')->group('w-1/2');
         $fields->name('params')->type('text')->group('w-1/2');
-        $fields->name('gateway_id')->type('recordpicker')->table('sms_gateway')->group('w-1/2');
+        $fields->name('gateway_id')->type('recordpicker')->table(['sms', 'gateway'])->group('w-1/2');
         $fields->name('is_payment')->type('switch')->group('w-1/2');
         $fields->name('completed')->type('switch')->group('w-1/2');
         $fields->name('successful')->type('switch')->group('w-1/2');
@@ -103,7 +103,7 @@ class Incoming extends BaseModel
 
         $fields->name('phone')->type('text')->group('w-1/6');
         $fields->name('date_sent')->type('date')->group('w-1/6');
-        $fields->name('gateway_id')->type('recordpicker')->table('sms_gateway')->group('w-1/6');
+        $fields->name('gateway_id')->type('recordpicker')->table(['sms', 'gateway'])->group('w-1/6');
         $fields->name('is_payment')->type('switch')->group('w-1/6');
         $fields->name('completed')->type('switch')->group('w-1/6');
         $fields->name('successful')->type('switch')->group('w-1/6');

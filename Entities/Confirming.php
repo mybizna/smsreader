@@ -59,8 +59,8 @@ class Confirming extends BaseModel
         $fields->name('phone')->type('text')->ordering(true);
         $fields->name('code')->type('text')->ordering(true);
         $fields->name('name')->type('text')->ordering(true);
-        $fields->name('format_id')->type('recordpicker')->table('smsreader_format')->ordering(true);
-        $fields->name('incoming_id')->type('recordpicker')->table('smsreader_incoming')->ordering(true);
+        $fields->name('format_id')->type('recordpicker')->table(['smsreader', 'format'])->ordering(true);
+        $fields->name('incoming_id')->type('recordpicker')->table(['smsreader', 'incoming'])->ordering(true);
         $fields->name('amount')->type('text')->ordering(true);
         $fields->name('account')->type('text')->ordering(true);
         $fields->name('request_type')->type('text')->ordering(true);
@@ -85,8 +85,8 @@ class Confirming extends BaseModel
         $fields->name('phone')->type('text')->group('w-1/2');
         $fields->name('code')->type('text')->group('w-1/2');
         $fields->name('name')->type('text')->group('w-1/2');
-        $fields->name('format_id')->type('recordpicker')->table('smsreader_format')->group('w-1/2');
-        $fields->name('incoming_id')->type('recordpicker')->table('smsreader_incoming')->group('w-1/2');
+        $fields->name('format_id')->type('recordpicker')->table(['smsreader', 'format'])->group('w-1/2');
+        $fields->name('incoming_id')->type('recordpicker')->table(['smsreader', 'incoming'])->group('w-1/2');
         $fields->name('amount')->type('text')->group('w-1/2');
         $fields->name('account')->type('text')->group('w-1/2');
         $fields->name('request_type')->type('text')->group('w-1/2');
@@ -111,8 +111,8 @@ class Confirming extends BaseModel
         $fields->name('phone')->type('text')->group('w-1/6');
         $fields->name('code')->type('text')->group('w-1/6');
         $fields->name('name')->type('text')->group('w-1/6');
-        $fields->name('format_id')->type('recordpicker')->table('smsreader_format')->group('w-1/6');
-        $fields->name('incoming_id')->type('recordpicker')->table('smsreader_incoming')->group('w-1/6');
+        $fields->name('format_id')->type('recordpicker')->table(['smsreader', 'format'])->group('w-1/6');
+        $fields->name('incoming_id')->type('recordpicker')->table(['smsreader', 'incoming'])->group('w-1/6');
         $fields->name('completed')->type('switch')->group('w-1/6');
         $fields->name('successful')->type('switch')->group('w-1/6');
 

@@ -48,7 +48,7 @@ class Account extends BaseModel
         // listing view fields
         $fields = new ListTable();
 
-        $fields->name('partner_id')->type('recordpicker')->table('partner')->ordering(true);
+        $fields->name('partner_id')->type('recordpicker')->table(['partner'])->ordering(true);
         $fields->name('txn')->type('text')->ordering(true);
         $fields->name('account')->type('text')->ordering(true);
 
@@ -66,7 +66,7 @@ class Account extends BaseModel
         // listing view fields
         $fields = new FormBuilder();
 
-        $fields->name('partner_id')->type('recordpicker')->table('partner')->group('w-1/2');
+        $fields->name('partner_id')->type('recordpicker')->table(['partner'])->group('w-1/2');
         $fields->name('txn')->type('text')->group('w-1/2');
         $fields->name('account')->type('text')->group('w-1/2');
 
@@ -84,7 +84,7 @@ class Account extends BaseModel
         // listing view fields
         $fields = new FormBuilder();
 
-        $fields->name('partner_id')->type('recordpicker')->table('partner')->group('w-1/6');
+        $fields->name('partner_id')->type('recordpicker')->table(['partner'])->group('w-1/6');
         $fields->name('txn')->type('text')->group('w-1/6');
         $fields->name('account')->type('text')->group('w-1/6');
 
