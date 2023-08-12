@@ -4,41 +4,47 @@ namespace Modules\Smsreader\Entities;
 
 use Illuminate\Database\Schema\Blueprint;
 use Modules\Base\Classes\Migration;
-use Modules\Base\Entities\BaseModel;
-
-use Modules\Base\Classes\Views\ListTable;
 use Modules\Base\Classes\Views\FormBuilder;
+use Modules\Base\Classes\Views\ListTable;
+use Modules\Base\Entities\BaseModel;
 
 class Requests extends BaseModel
 {
     /**
      * The fields that can be filled
-     * 
+     *
      * @var array<string>
      */
     protected $fillable = ['payment_id', 'phone', 'message', 'date_sent'];
 
     /**
+     * The fields that are to be render when performing relationship queries.
+     *
+     * @var array<string>
+     */
+    public $rec_names = ['payment_id', 'phone'];
+
+    /**
      * List of tables names that are need in this model during migration.
-     * 
+     *
      * @var array<string>
      */
     public array $migrationDependancy = ['smsreader_template'];
 
     /**
      * The table associated with the model.
-     * 
+     *
      * @var string
      */
     protected $table = "smsreader_requests";
 
     /**
      * Function for defining list of fields in table view.
-     * 
+     *
      * @return ListTable
      */
 
-    public function  listTable(): ListTable
+    public function listTable(): ListTable
     {
         // listing view fields
         $fields = new ListTable();
@@ -54,12 +60,12 @@ class Requests extends BaseModel
 
     /**
      * Function for defining list of fields in form view.
-     * 
+     *
      * @return FormBuilder
      */
-    
+
     public function formBuilder(): FormBuilder
-{
+    {
         // listing view fields
         $fields = new FormBuilder();
 
@@ -74,7 +80,7 @@ class Requests extends BaseModel
 
     /**
      * Function for defining list of fields in filter view.
-     * 
+     *
      * @return FormBuilder
      */
     public function filter(): FormBuilder
@@ -105,7 +111,6 @@ class Requests extends BaseModel
         $table->string('message');
         $table->datetime('date_sent');
     }
-
 
     /**
      * Handle post migration processes for adding foreign keys.
