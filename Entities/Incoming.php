@@ -55,14 +55,14 @@ class Incoming extends BaseModel
         // listing view fields
         $fields = new ListTable();
 
-        $fields->name('phone')->type('text')->ordering(true);
-        $fields->name('message')->type('textarea')->ordering(true);
-        $fields->name('date_sent')->type('date')->ordering(true);
-        $fields->name('params')->type('text')->ordering(true);
-        $fields->name('gateway_id')->type('recordpicker')->table(['sms', 'gateway'])->ordering(true);
-        $fields->name('is_payment')->type('switch')->ordering(true);
-        $fields->name('completed')->type('switch')->ordering(true);
-        $fields->name('successful')->type('switch')->ordering(true);
+        $fields->name('phone')->html('text')->ordering(true);
+        $fields->name('message')->html('textarea')->ordering(true);
+        $fields->name('date_sent')->html('date')->ordering(true);
+        $fields->name('params')->html('text')->ordering(true);
+        $fields->name('gateway_id')->html('recordpicker')->table(['sms', 'gateway'])->ordering(true);
+        $fields->name('is_payment')->html('switch')->ordering(true);
+        $fields->name('completed')->html('switch')->ordering(true);
+        $fields->name('successful')->html('switch')->ordering(true);
 
         return $fields;
 
@@ -78,14 +78,14 @@ class Incoming extends BaseModel
         // listing view fields
         $fields = new FormBuilder();
 
-        $fields->name('phone')->type('text')->group('w-1/2');
-        $fields->name('message')->type('textarea')->group('w-1/2');
-        $fields->name('date_sent')->type('date')->group('w-1/2');
-        $fields->name('params')->type('text')->group('w-1/2');
-        $fields->name('gateway_id')->type('recordpicker')->table(['sms', 'gateway'])->group('w-1/2');
-        $fields->name('is_payment')->type('switch')->group('w-1/2');
-        $fields->name('completed')->type('switch')->group('w-1/2');
-        $fields->name('successful')->type('switch')->group('w-1/2');
+        $fields->name('phone')->html('text')->group('w-1/2');
+        $fields->name('message')->html('textarea')->group('w-1/2');
+        $fields->name('date_sent')->html('date')->group('w-1/2');
+        $fields->name('params')->html('text')->group('w-1/2');
+        $fields->name('gateway_id')->html('recordpicker')->table(['sms', 'gateway'])->group('w-1/2');
+        $fields->name('is_payment')->html('switch')->group('w-1/2');
+        $fields->name('completed')->html('switch')->group('w-1/2');
+        $fields->name('successful')->html('switch')->group('w-1/2');
 
         return $fields;
 
@@ -101,12 +101,12 @@ class Incoming extends BaseModel
         // listing view fields
         $fields = new FormBuilder();
 
-        $fields->name('phone')->type('text')->group('w-1/6');
-        $fields->name('date_sent')->type('date')->group('w-1/6');
-        $fields->name('gateway_id')->type('recordpicker')->table(['sms', 'gateway'])->group('w-1/6');
-        $fields->name('is_payment')->type('switch')->group('w-1/6');
-        $fields->name('completed')->type('switch')->group('w-1/6');
-        $fields->name('successful')->type('switch')->group('w-1/6');
+        $fields->name('phone')->html('text')->group('w-1/6');
+        $fields->name('date_sent')->html('date')->group('w-1/6');
+        $fields->name('gateway_id')->html('recordpicker')->table(['sms', 'gateway'])->group('w-1/6');
+        $fields->name('is_payment')->html('switch')->group('w-1/6');
+        $fields->name('completed')->html('switch')->group('w-1/6');
+        $fields->name('successful')->html('switch')->group('w-1/6');
 
         return $fields;
 
@@ -119,18 +119,18 @@ class Incoming extends BaseModel
      */
     public function migration(Blueprint $table): void
     {
-        $table->increments('id');
-        $table->char('phone', 255);
-        $table->string('message');
-        $table->datetime('date_sent')->nullable();
-        $table->datetime('date_received')->nullable();
-        $table->string('sim')->nullable();
-        $table->foreignId('gateway_id')->nullable();
-        $table->string('params')->nullable();
-        $table->enum('action', ['payment', 'confirming', 'account', 'withdraw', 'others'])->default('others')->nullable();
-        $table->tinyInteger('is_payment')->nullable()->default(0);
-        $table->tinyInteger('completed')->nullable()->default(0);
-        $table->tinyInteger('successful')->nullable()->default(0);
+        $this->fields->increments('id');
+        $this->fields->char('phone', 255);
+        $this->fields->string('message');
+        $this->fields->datetime('date_sent')->nullable();
+        $this->fields->datetime('date_received')->nullable();
+        $this->fields->string('sim')->nullable();
+        $this->fields->foreignId('gateway_id')->nullable();
+        $this->fields->string('params')->nullable();
+        $this->fields->enum('action', ['payment', 'confirming', 'account', 'withdraw', 'others'])->default('others')->nullable();
+        $this->fields->tinyInteger('is_payment')->nullable()->default(0);
+        $this->fields->tinyInteger('completed')->nullable()->default(0);
+        $this->fields->tinyInteger('successful')->nullable()->default(0);
     }
 
     /**

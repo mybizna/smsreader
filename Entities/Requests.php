@@ -49,10 +49,10 @@ class Requests extends BaseModel
         // listing view fields
         $fields = new ListTable();
 
-        $fields->name('payment_id')->type('text')->ordering(true);
-        $fields->name('phone')->type('text')->ordering(true);
-        $fields->name('message')->type('textarea')->ordering(true);
-        $fields->name('date_sent')->type('date')->ordering(true);
+        $fields->name('payment_id')->html('text')->ordering(true);
+        $fields->name('phone')->html('text')->ordering(true);
+        $fields->name('message')->html('textarea')->ordering(true);
+        $fields->name('date_sent')->html('date')->ordering(true);
 
         return $fields;
 
@@ -69,10 +69,10 @@ class Requests extends BaseModel
         // listing view fields
         $fields = new FormBuilder();
 
-        $fields->name('payment_id')->type('text')->group('w-1/2');
-        $fields->name('phone')->type('text')->group('w-1/2');
-        $fields->name('message')->type('textarea')->group('w-1/2');
-        $fields->name('date_sent')->type('date')->group('w-1/2');
+        $fields->name('payment_id')->html('text')->group('w-1/2');
+        $fields->name('phone')->html('text')->group('w-1/2');
+        $fields->name('message')->html('textarea')->group('w-1/2');
+        $fields->name('date_sent')->html('date')->group('w-1/2');
 
         return $fields;
 
@@ -88,10 +88,10 @@ class Requests extends BaseModel
         // listing view fields
         $fields = new FormBuilder();
 
-        $fields->name('payment_id')->type('text')->group('w-1/6');
-        $fields->name('phone')->type('text')->group('w-1/6');
-        $fields->name('message')->type('textarea')->group('w-1/6');
-        $fields->name('date_sent')->type('date')->group('w-1/6');
+        $fields->name('payment_id')->html('text')->group('w-1/6');
+        $fields->name('phone')->html('text')->group('w-1/6');
+        $fields->name('message')->html('textarea')->group('w-1/6');
+        $fields->name('date_sent')->html('date')->group('w-1/6');
 
         return $fields;
 
@@ -104,12 +104,12 @@ class Requests extends BaseModel
      */
     public function migration(Blueprint $table): void
     {
-        $table->increments('id');
-        $table->foreignId('payment_id');
-        $table->char('phone', 255);
-        $table->char('slug_str', 255);
-        $table->string('message');
-        $table->datetime('date_sent');
+        $this->fields->increments('id');
+        $this->fields->foreignId('payment_id');
+        $this->fields->char('phone', 255);
+        $this->fields->char('slug_str', 255);
+        $this->fields->string('message');
+        $this->fields->datetime('date_sent');
     }
 
     /**

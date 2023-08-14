@@ -47,10 +47,10 @@ class Template extends BaseModel
         // listing view fields
         $fields = new ListTable();
 
-        $fields->name('title')->type('text')->ordering(true);
-        $fields->name('slug')->type('text')->ordering(true);
-        $fields->name('template')->type('text')->ordering(true);
-        $fields->name('published')->type('text')->ordering(true);
+        $fields->name('title')->html('text')->ordering(true);
+        $fields->name('slug')->html('text')->ordering(true);
+        $fields->name('template')->html('text')->ordering(true);
+        $fields->name('published')->html('text')->ordering(true);
 
         return $fields;
 
@@ -66,10 +66,10 @@ class Template extends BaseModel
         // listing view fields
         $fields = new FormBuilder();
 
-        $fields->name('title')->type('text')->group('w-1/2');
-        $fields->name('slug')->type('text')->group('w-1/2');
-        $fields->name('template')->type('text')->group('w-1/2');
-        $fields->name('published')->type('text')->group('w-1/2');
+        $fields->name('title')->html('text')->group('w-1/2');
+        $fields->name('slug')->html('text')->group('w-1/2');
+        $fields->name('template')->html('text')->group('w-1/2');
+        $fields->name('published')->html('text')->group('w-1/2');
 
         return $fields;
 
@@ -85,10 +85,10 @@ class Template extends BaseModel
         // listing view fields
         $fields = new FormBuilder();
 
-        $fields->name('title')->type('text')->group('w-1/6');
-        $fields->name('slug')->type('text')->group('w-1/6');
-        $fields->name('template')->type('text')->group('w-1/6');
-        $fields->name('published')->type('text')->group('w-1/6');
+        $fields->name('title')->html('text')->group('w-1/6');
+        $fields->name('slug')->html('text')->group('w-1/6');
+        $fields->name('template')->html('text')->group('w-1/6');
+        $fields->name('published')->html('text')->group('w-1/6');
 
         return $fields;
 
@@ -101,10 +101,10 @@ class Template extends BaseModel
      */
     public function migration(Blueprint $table): void
     {
-        $table->increments('id');
-        $table->char('title', 255);
-        $table->char('slug', 255);
-        $table->string('template');
-        $table->tinyInteger('published')->default(true);
+        $this->fields->increments('id');
+        $this->fields->char('title', 255);
+        $this->fields->char('slug', 255);
+        $this->fields->string('template');
+        $this->fields->tinyInteger('published')->default(true);
     }
 }

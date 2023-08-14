@@ -48,9 +48,9 @@ class Account extends BaseModel
         // listing view fields
         $fields = new ListTable();
 
-        $fields->name('partner_id')->type('recordpicker')->table(['partner'])->ordering(true);
-        $fields->name('txn')->type('text')->ordering(true);
-        $fields->name('account')->type('text')->ordering(true);
+        $fields->name('partner_id')->html('recordpicker')->table(['partner'])->ordering(true);
+        $fields->name('txn')->html('text')->ordering(true);
+        $fields->name('account')->html('text')->ordering(true);
 
         return $fields;
 
@@ -66,9 +66,9 @@ class Account extends BaseModel
         // listing view fields
         $fields = new FormBuilder();
 
-        $fields->name('partner_id')->type('recordpicker')->table(['partner'])->group('w-1/2');
-        $fields->name('txn')->type('text')->group('w-1/2');
-        $fields->name('account')->type('text')->group('w-1/2');
+        $fields->name('partner_id')->html('recordpicker')->table(['partner'])->group('w-1/2');
+        $fields->name('txn')->html('text')->group('w-1/2');
+        $fields->name('account')->html('text')->group('w-1/2');
 
         return $fields;
 
@@ -84,9 +84,9 @@ class Account extends BaseModel
         // listing view fields
         $fields = new FormBuilder();
 
-        $fields->name('partner_id')->type('recordpicker')->table(['partner'])->group('w-1/6');
-        $fields->name('txn')->type('text')->group('w-1/6');
-        $fields->name('account')->type('text')->group('w-1/6');
+        $fields->name('partner_id')->html('recordpicker')->table(['partner'])->group('w-1/6');
+        $fields->name('txn')->html('text')->group('w-1/6');
+        $fields->name('account')->html('text')->group('w-1/6');
 
         return $fields;
 
@@ -99,10 +99,10 @@ class Account extends BaseModel
      */
     public function migration(Blueprint $table): void
     {
-        $table->increments('id');
-        $table->foreignId('partner_id');
-        $table->char('account', 255);
-        $table->char('txn', 255);
+        $this->fields->increments('id');
+        $this->fields->foreignId('partner_id');
+        $this->fields->char('account', 255);
+        $this->fields->char('txn', 255);
     }
 
     /**

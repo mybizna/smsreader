@@ -45,11 +45,11 @@ class Format extends BaseModel
         // listing view fields
         $fields = new ListTable();
 
-        $fields->name('title')->type('text')->ordering(true);
-        $fields->name('slug')->type('text')->ordering(true);
-        $fields->name('format')->type('text')->ordering(true);
-        $fields->name('fields_str')->type('text')->ordering(true);
-        $fields->name('published')->type('switch')->ordering(true);
+        $fields->name('title')->html('text')->ordering(true);
+        $fields->name('slug')->html('text')->ordering(true);
+        $fields->name('format')->html('text')->ordering(true);
+        $fields->name('fields_str')->html('text')->ordering(true);
+        $fields->name('published')->html('switch')->ordering(true);
 
         return $fields;
 
@@ -65,11 +65,11 @@ class Format extends BaseModel
         // listing view fields
         $fields = new FormBuilder();
 
-        $fields->name('title')->type('text')->group('w-1/2');
-        $fields->name('slug')->type('text')->group('w-1/2');
-        $fields->name('format')->type('text')->group('w-1/2');
-        $fields->name('fields_str')->type('text')->group('w-1/2');
-        $fields->name('published')->type('switch')->group('w-1/2');
+        $fields->name('title')->html('text')->group('w-1/2');
+        $fields->name('slug')->html('text')->group('w-1/2');
+        $fields->name('format')->html('text')->group('w-1/2');
+        $fields->name('fields_str')->html('text')->group('w-1/2');
+        $fields->name('published')->html('switch')->group('w-1/2');
 
         return $fields;
 
@@ -85,11 +85,11 @@ class Format extends BaseModel
         // listing view fields
         $fields = new FormBuilder();
 
-        $fields->name('title')->type('text')->group('w-1/6');
-        $fields->name('slug')->type('text')->group('w-1/6');
-        $fields->name('format')->type('text')->group('w-1/6');
-        $fields->name('fields_str')->type('text')->group('w-1/6');
-        $fields->name('published')->type('switch')->group('w-1/6');
+        $fields->name('title')->html('text')->group('w-1/6');
+        $fields->name('slug')->html('text')->group('w-1/6');
+        $fields->name('format')->html('text')->group('w-1/6');
+        $fields->name('fields_str')->html('text')->group('w-1/6');
+        $fields->name('published')->html('switch')->group('w-1/6');
 
         return $fields;
 
@@ -102,13 +102,13 @@ class Format extends BaseModel
      */
     public function migration(Blueprint $table): void
     {
-        $table->increments('id');
-        $table->char('title', 255);
-        $table->char('slug', 255);
-        $table->string('format');
-        $table->string('fields_str');
-        $table->enum('action', ['payment', 'confirming', 'account', 'withdraw', 'others'])->default('others')->nullable();
-        $table->integer('ordering')->default(5);
-        $table->tinyInteger('published')->default(true);
+        $this->fields->increments('id');
+        $this->fields->char('title', 255);
+        $this->fields->char('slug', 255);
+        $this->fields->string('format');
+        $this->fields->string('fields_str');
+        $this->fields->enum('action', ['payment', 'confirming', 'account', 'withdraw', 'others'])->default('others')->nullable();
+        $this->fields->integer('ordering')->default(5);
+        $this->fields->tinyInteger('published')->default(true);
     }
 }

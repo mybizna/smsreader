@@ -56,17 +56,17 @@ class Confirming extends BaseModel
         // listing view fields
         $fields = new ListTable();
 
-        $fields->name('phone')->type('text')->ordering(true);
-        $fields->name('code')->type('text')->ordering(true);
-        $fields->name('name')->type('text')->ordering(true);
-        $fields->name('format_id')->type('recordpicker')->table(['smsreader', 'format'])->ordering(true);
-        $fields->name('incoming_id')->type('recordpicker')->table(['smsreader', 'incoming'])->ordering(true);
-        $fields->name('amount')->type('text')->ordering(true);
-        $fields->name('account')->type('text')->ordering(true);
-        $fields->name('request_type')->type('text')->ordering(true);
-        $fields->name('date_sent')->type('date')->ordering(true);
-        $fields->name('completed')->type('switch')->ordering(true);
-        $fields->name('successful')->type('switch')->ordering(true);
+        $fields->name('phone')->html('text')->ordering(true);
+        $fields->name('code')->html('text')->ordering(true);
+        $fields->name('name')->html('text')->ordering(true);
+        $fields->name('format_id')->html('recordpicker')->table(['smsreader', 'format'])->ordering(true);
+        $fields->name('incoming_id')->html('recordpicker')->table(['smsreader', 'incoming'])->ordering(true);
+        $fields->name('amount')->html('text')->ordering(true);
+        $fields->name('account')->html('text')->ordering(true);
+        $fields->name('request_type')->html('text')->ordering(true);
+        $fields->name('date_sent')->html('date')->ordering(true);
+        $fields->name('completed')->html('switch')->ordering(true);
+        $fields->name('successful')->html('switch')->ordering(true);
 
         return $fields;
 
@@ -82,17 +82,17 @@ class Confirming extends BaseModel
         // listing view fields
         $fields = new FormBuilder();
 
-        $fields->name('phone')->type('text')->group('w-1/2');
-        $fields->name('code')->type('text')->group('w-1/2');
-        $fields->name('name')->type('text')->group('w-1/2');
-        $fields->name('format_id')->type('recordpicker')->table(['smsreader', 'format'])->group('w-1/2');
-        $fields->name('incoming_id')->type('recordpicker')->table(['smsreader', 'incoming'])->group('w-1/2');
-        $fields->name('amount')->type('text')->group('w-1/2');
-        $fields->name('account')->type('text')->group('w-1/2');
-        $fields->name('request_type')->type('text')->group('w-1/2');
-        $fields->name('date_sent')->type('date')->group('w-1/2');
-        $fields->name('completed')->type('switch')->group('w-1/2');
-        $fields->name('successful')->type('switch')->group('w-1/2');
+        $fields->name('phone')->html('text')->group('w-1/2');
+        $fields->name('code')->html('text')->group('w-1/2');
+        $fields->name('name')->html('text')->group('w-1/2');
+        $fields->name('format_id')->html('recordpicker')->table(['smsreader', 'format'])->group('w-1/2');
+        $fields->name('incoming_id')->html('recordpicker')->table(['smsreader', 'incoming'])->group('w-1/2');
+        $fields->name('amount')->html('text')->group('w-1/2');
+        $fields->name('account')->html('text')->group('w-1/2');
+        $fields->name('request_type')->html('text')->group('w-1/2');
+        $fields->name('date_sent')->html('date')->group('w-1/2');
+        $fields->name('completed')->html('switch')->group('w-1/2');
+        $fields->name('successful')->html('switch')->group('w-1/2');
 
         return $fields;
 
@@ -108,13 +108,13 @@ class Confirming extends BaseModel
         // listing view fields
         $fields = new FormBuilder();
 
-        $fields->name('phone')->type('text')->group('w-1/6');
-        $fields->name('code')->type('text')->group('w-1/6');
-        $fields->name('name')->type('text')->group('w-1/6');
-        $fields->name('format_id')->type('recordpicker')->table(['smsreader', 'format'])->group('w-1/6');
-        $fields->name('incoming_id')->type('recordpicker')->table(['smsreader', 'incoming'])->group('w-1/6');
-        $fields->name('completed')->type('switch')->group('w-1/6');
-        $fields->name('successful')->type('switch')->group('w-1/6');
+        $fields->name('phone')->html('text')->group('w-1/6');
+        $fields->name('code')->html('text')->group('w-1/6');
+        $fields->name('name')->html('text')->group('w-1/6');
+        $fields->name('format_id')->html('recordpicker')->table(['smsreader', 'format'])->group('w-1/6');
+        $fields->name('incoming_id')->html('recordpicker')->table(['smsreader', 'incoming'])->group('w-1/6');
+        $fields->name('completed')->html('switch')->group('w-1/6');
+        $fields->name('successful')->html('switch')->group('w-1/6');
 
         return $fields;
 
@@ -127,17 +127,17 @@ class Confirming extends BaseModel
      */
     public function migration(Blueprint $table): void
     {
-        $table->increments('id');
-        $table->char('phone', 255);
-        $table->char('code', 255);
-        $table->char('name', 255);
-        $table->datetime('date_sent');
-        $table->foreignId('format_id')->nullable();
-        $table->foreignId('incoming_id')->nullable();
-        $table->decimal('amount', 20, 2)->nullable();
-        $table->char('account', 255)->nullable();
-        $table->tinyInteger('completed')->nullable()->default(0);
-        $table->tinyInteger('successful')->nullable()->default(0);
+        $this->fields->increments('id');
+        $this->fields->char('phone', 255);
+        $this->fields->char('code', 255);
+        $this->fields->char('name', 255);
+        $this->fields->datetime('date_sent');
+        $this->fields->foreignId('format_id')->nullable();
+        $this->fields->foreignId('incoming_id')->nullable();
+        $this->fields->decimal('amount', 20, 2)->nullable();
+        $this->fields->char('account', 255)->nullable();
+        $this->fields->tinyInteger('completed')->nullable()->default(0);
+        $this->fields->tinyInteger('successful')->nullable()->default(0);
     }
 
     /**

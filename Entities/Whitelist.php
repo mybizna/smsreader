@@ -47,7 +47,7 @@ class Whitelist extends BaseModel
         // listing view fields
         $fields = new ListTable();
 
-        $fields->name('sender')->type('text')->ordering(true);
+        $fields->name('sender')->html('text')->ordering(true);
 
         return $fields;
 
@@ -63,7 +63,7 @@ class Whitelist extends BaseModel
         // listing view fields
         $fields = new FormBuilder();
 
-        $fields->name('sender')->type('text')->group('w-1/2');
+        $fields->name('sender')->html('text')->group('w-1/2');
 
         return $fields;
 
@@ -79,7 +79,7 @@ class Whitelist extends BaseModel
         // listing view fields
         $fields = new FormBuilder();
 
-        $fields->name('sender')->type('text')->group('w-1/6');
+        $fields->name('sender')->html('text')->group('w-1/6');
 
         return $fields;
 
@@ -93,7 +93,7 @@ class Whitelist extends BaseModel
      */
     public function migration(Blueprint $table): void
     {
-        $table->increments('id');
-        $table->string('sender');
+        $this->fields->increments('id');
+        $this->fields->string('sender');
     }
 }
