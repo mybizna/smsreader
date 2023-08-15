@@ -54,14 +54,16 @@ class Payment extends BaseModel
     {
         $this->fields = $table ?? new Blueprint($this->table);
 
+        $waiting = ['start', 'phone', 'account'];
+
         $this->fields->increments('id')->html('text');
         $this->fields->char('phone', 255)->html('text');
         $this->fields->char('code', 255)->html('text');
         $this->fields->char('name', 255)->html('text');
-        $this->fields->foreignId('format_id')->html('recordpicker')->table(['smsreader', 'format']);
-        $this->fields->foreignId('incoming_id')->html('recordpicker')->table(['smsreader', 'incoming']);
-        $this->fields->foreignId('partner_id')->html('recordpicker')->table(['partner']);
-        $this->fields->enum('waiting', ['start', 'phone', 'account'])->default('start')->nullable()->html('select');
+        $this->fields->foreignId('format_id')->html('recordpicker')->relation(['smsreader', 'format']);
+        $this->fields->foreignId('incoming_id')->html('recordpicker')->relation(['smsreader', 'incoming']);
+        $this->fields->foreignId('partner_id')->html('recordpicker')->relation(['partner']);
+        $this->fields->enum('waiting', $waiting)->options($waiting)->default('start')->nullable()->html('select');
         $this->fields->decimal('amount', 20, 2)->html('amount');
         $this->fields->char('account', 255)->html('text');
         $this->fields->char('request_type', 255)->html('text');

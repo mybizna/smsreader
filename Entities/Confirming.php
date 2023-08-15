@@ -59,8 +59,8 @@ class Confirming extends BaseModel
         $this->fields->char('code', 255)->html('text');
         $this->fields->char('name', 255)->html('text');
         $this->fields->datetime('date_sent')->html('date');
-        $this->fields->foreignId('format_id')->nullable()->html('recordpicker')->table(['smsreader', 'format']);
-        $this->fields->foreignId('incoming_id')->nullable()->html('recordpicker')->table(['smsreader', 'incoming']);
+        $this->fields->foreignId('format_id')->nullable()->html('recordpicker')->relation(['smsreader', 'format']);
+        $this->fields->foreignId('incoming_id')->nullable()->html('recordpicker')->relation(['smsreader', 'incoming']);
         $this->fields->decimal('amount', 20, 2)->nullable()->html('amount');
         $this->fields->char('account', 255)->nullable()->html('text');
         $this->fields->tinyInteger('completed')->nullable()->default(0)->html('switch');

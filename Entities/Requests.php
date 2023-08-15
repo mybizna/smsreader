@@ -47,7 +47,7 @@ class Requests extends BaseModel
         $this->fields = $table ?? new Blueprint($this->table);
         
         $this->fields->increments('id')->html('text');
-        $this->fields->foreignId('payment_id')->html('recordpicker')->table(['smsreader', 'payment']);
+        $this->fields->foreignId('payment_id')->html('recordpicker')->relation(['smsreader', 'payment']);
         $this->fields->char('phone', 255)->html('text');
         $this->fields->char('slug_str', 255)->html('text');
         $this->fields->string('message')->html('textarea');

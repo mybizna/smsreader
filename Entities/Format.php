@@ -43,12 +43,14 @@ class Format extends BaseModel
     {
         $this->fields = $table ?? new Blueprint($this->table);
 
+        $actions = ['payment', 'confirming', 'account', 'withdraw', 'others'];
+
         $this->fields->increments('id')->html('text');
         $this->fields->char('title', 255)->html('text');
         $this->fields->char('slug', 255)->html('text');
         $this->fields->string('format')->html('text');
         $this->fields->string('fields_str')->html('text');
-        $this->fields->enum('action', ['payment', 'confirming', 'account', 'withdraw', 'others'])->default('others')->nullable()->html('select');
+        $this->fields->enum('action', $action)->options($actions)->default('others')->nullable()->html('select');
         $this->fields->integer('ordering')->default(5)->html('number');
         $this->fields->tinyInteger('published')->default(true)->html('switch');
     }
