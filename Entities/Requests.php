@@ -42,7 +42,7 @@ class Requests extends BaseModel
      * @param Blueprint $table
      * @return void
      */
-    public function fields(Blueprint $table): void
+    public function fields(Blueprint $table = null): void
     {
         $this->fields = $table ?? new Blueprint($this->table);
         
@@ -52,6 +52,19 @@ class Requests extends BaseModel
         $this->fields->char('slug_str', 255)->html('text');
         $this->fields->string('message')->html('textarea');
         $this->fields->datetime('date_sent')->html('date');
+    }
+
+    /**
+     * List of structure for this model.
+     */
+    public function structure($structure): array
+    {
+        $structure = [
+            'table' => ['payment_id', 'phone', 'message', 'date_sent'],
+            'filter' => ['payment_id', 'phone', 'date_sent'],
+        ];
+
+        return $structure;
     }
 
 }

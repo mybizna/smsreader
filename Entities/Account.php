@@ -42,7 +42,7 @@ class Account extends BaseModel
      * @param Blueprint $table
      * @return void
      */
-    public function fields(Blueprint $table): void
+    public function fields(Blueprint $table = null): void
     {
         $this->fields = $table ?? new Blueprint($this->table);
         
@@ -50,6 +50,19 @@ class Account extends BaseModel
         $this->fields->foreignId('partner_id')->html('recordpicker')->table(['partner']);
         $this->fields->char('account', 255)->html('text');
         $this->fields->char('txn', 255)->html('text');
+    }
+
+    /**
+     * List of structure for this model.
+     */
+    public function structure($structure): array
+    {
+        $structure = [
+            'table' => ['partner_id', 'txn', 'account'],
+            'filter' => ['partner_id', 'txn', 'account'],
+        ];
+
+        return $structure;
     }
 
 }

@@ -49,7 +49,7 @@ class Incoming extends BaseModel
      * @param Blueprint $table
      * @return void
      */
-    public function fields(Blueprint $table): void
+    public function fields(Blueprint $table = null): void
     {
         $this->fields = $table ?? new Blueprint($this->table);
         
@@ -65,6 +65,19 @@ class Incoming extends BaseModel
         $this->fields->tinyInteger('is_payment')->nullable()->default(0)->html('switch');
         $this->fields->tinyInteger('completed')->nullable()->default(0)->html('switch');
         $this->fields->tinyInteger('successful')->nullable()->default(0)->html('switch');
+    }
+
+    /**
+     * List of structure for this model.
+     */
+    public function structure($structure): array
+    {
+        $structure = [
+            'table' => ['phone', 'message', 'date_sent', 'gateway_id', 'is_payment', 'completed', 'successful'],
+            'filter' => ['phone', 'date_sent', 'gateway_id', 'is_payment', 'completed', 'successful'],
+        ];
+
+        return $structure;
     }
 
 }

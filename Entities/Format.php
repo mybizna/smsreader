@@ -39,10 +39,10 @@ class Format extends BaseModel
      * @param Blueprint $table
      * @return void
      */
-    public function fields(Blueprint $table): void
+    public function fields(Blueprint $table = null): void
     {
         $this->fields = $table ?? new Blueprint($this->table);
-        
+
         $this->fields->increments('id')->html('text');
         $this->fields->char('title', 255)->html('text');
         $this->fields->char('slug', 255)->html('text');
@@ -51,5 +51,18 @@ class Format extends BaseModel
         $this->fields->enum('action', ['payment', 'confirming', 'account', 'withdraw', 'others'])->default('others')->nullable()->html('select');
         $this->fields->integer('ordering')->default(5)->html('number');
         $this->fields->tinyInteger('published')->default(true)->html('switch');
+    }
+
+    /**
+     * List of structure for this model.
+     */
+    public function structure($structure): array
+    {
+        $structure = [
+            'table' => ['title', 'slug', 'format', 'fields_str', 'published'],
+            'filter' => ['title', 'slug', 'published'],
+        ];
+
+        return $structure;
     }
 }

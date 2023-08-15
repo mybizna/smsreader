@@ -50,10 +50,10 @@ class Payment extends BaseModel
      * @param Blueprint $table
      * @return void
      */
-    public function fields(Blueprint $table): void
+    public function fields(Blueprint $table = null): void
     {
         $this->fields = $table ?? new Blueprint($this->table);
-        
+
         $this->fields->increments('id')->html('text');
         $this->fields->char('phone', 255)->html('text');
         $this->fields->char('code', 255)->html('text');
@@ -68,6 +68,19 @@ class Payment extends BaseModel
         $this->fields->datetime('date_sent')->html('date');
         $this->fields->tinyInteger('completed')->nullable()->default(0)->html('switch');
         $this->fields->tinyInteger('successful')->nullable()->default(0)->html('switch');
+    }
+
+    /**
+     * List of structure for this model.
+     */
+    public function structure($structure): array
+    {
+        $structure = [
+            'table' => ['phone', 'code', 'name', 'format_id', 'incoming_id', 'partner_id', 'amount', 'account', 'date_sent', 'completed', 'successful'],
+            'filter' => ['phone', 'format_id', 'incoming_id', 'partner_id', 'amount'],
+        ];
+
+        return $structure;
     }
 
 }
