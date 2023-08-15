@@ -44,6 +44,8 @@ class Requests extends BaseModel
      */
     public function fields(Blueprint $table): void
     {
+        $this->fields = $table ?? new Blueprint($this->table);
+        
         $this->fields->increments('id')->html('text');
         $this->fields->foreignId('payment_id')->html('recordpicker')->table(['smsreader', 'payment']);
         $this->fields->char('phone', 255)->html('text');

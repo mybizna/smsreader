@@ -51,6 +51,8 @@ class Incoming extends BaseModel
      */
     public function fields(Blueprint $table): void
     {
+        $this->fields = $table ?? new Blueprint($this->table);
+        
         $this->fields->increments('id')->html('text');
         $this->fields->char('phone', 255)->html('text');
         $this->fields->string('message')->html('textarea');
