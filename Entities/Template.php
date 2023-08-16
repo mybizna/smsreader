@@ -44,7 +44,7 @@ class Template extends BaseModel
     public function fields(Blueprint $table = null): void
     {
         $this->fields = $table ?? new Blueprint($this->table);
-        
+
         $this->fields->increments('id')->html('text');
         $this->fields->char('title', 255)->html('text');
         $this->fields->char('slug', 255)->html('text');
@@ -59,7 +59,12 @@ class Template extends BaseModel
     {
         $structure = [
             'table' => ['title', 'slug', 'published'],
-            'filter' => ['title', 'published'],
+            'form' => [
+                ['label' => 'Title', 'class' => 'w-full', 'fields' => ['title', 'slug']],
+                ['label' => 'Published', 'class' => 'w-1/2', 'fields' => ['published']],
+                ['label' => 'Template', 'class' => 'w-full', 'fields' => ['template']],
+            ],
+            'filter' => ['title', 'slug', 'published'],
         ];
 
         return $structure;

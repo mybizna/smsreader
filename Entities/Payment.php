@@ -77,8 +77,14 @@ class Payment extends BaseModel
      */
     public function structure($structure): array
     {
+
         $structure = [
             'table' => ['phone', 'code', 'name', 'format_id', 'incoming_id', 'partner_id', 'amount', 'account', 'date_sent', 'completed', 'successful'],
+            'form' => [
+                ['label' => 'Name', 'class' => 'w-full', 'fields' => ['name']],
+                ['label' => 'Published', 'class' => 'w-1/2', 'fields' => ['phone', 'code', 'format_id', 'incoming_id', 'partner_id']],
+                ['label' => 'Published', 'class' => 'w-1/2', 'fields' => ['amount', 'account', 'date_sent', 'completed', 'successful']],
+            ],
             'filter' => ['phone', 'format_id', 'incoming_id', 'partner_id', 'amount'],
         ];
 

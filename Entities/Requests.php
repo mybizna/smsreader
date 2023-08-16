@@ -59,8 +59,14 @@ class Requests extends BaseModel
      */
     public function structure($structure): array
     {
+        
         $structure = [
             'table' => ['payment_id', 'phone', 'message', 'date_sent'],
+            'form' => [
+                ['label' => 'Phone', 'class' => 'w-full', 'fields' => ['phone']],
+                ['label' => 'Request', 'class' => 'w-1/2', 'fields' => ['payment_id',  'date_sent']],
+                ['label' => 'Message', 'class' => 'w-full', 'fields' => ['message']],
+            ],
             'filter' => ['payment_id', 'phone', 'date_sent'],
         ];
 

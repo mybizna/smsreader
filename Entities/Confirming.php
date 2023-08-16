@@ -72,8 +72,15 @@ class Confirming extends BaseModel
      */
     public function structure($structure): array
     {
+
+        //'phone', 'name',  'account', 'date_sent', 'completed', 'successful'
         $structure = [
             'table' => ['phone', 'code', 'name', 'format_id', 'incoming_id', 'amount', 'account', 'date_sent', 'completed', 'successful'],
+            'form' => [
+                ['label' => 'Code', 'class' => 'w-full', 'fields' => ['code']],
+                ['label' => 'Confirming', 'class' => 'w-1/2', 'fields' => ['format_id', 'incoming_id', 'amount', 'account']],
+                ['label' => 'Published', 'class' => 'w-1/2', 'fields' => ['date_sent', 'completed', 'successful']],
+            ],
             'filter' => ['phone', 'code', 'name', 'format_id', 'incoming_id'],
         ];
 

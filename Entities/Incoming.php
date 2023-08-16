@@ -76,6 +76,12 @@ class Incoming extends BaseModel
     {
         $structure = [
             'table' => ['phone', 'message', 'date_sent', 'gateway_id', 'is_payment', 'completed', 'successful'],
+            'form' => [
+                ['label' => 'Phone', 'class' => 'w-full', 'fields' => ['phone']],
+                ['label' => 'Message', 'class' => 'w-full', 'fields' => ['message']],
+                ['label' => 'Incoming', 'class' => 'w-1/2', 'fields' => ['date_sent', 'params', 'gateway_id']],
+                ['label' => 'Incoming', 'class' => 'w-1/2', 'fields' => ['is_payment', 'completed', 'successful']],
+            ],
             'filter' => ['phone', 'date_sent', 'gateway_id', 'is_payment', 'completed', 'successful'],
         ];
 
