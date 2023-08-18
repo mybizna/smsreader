@@ -42,7 +42,7 @@ class Blacklist extends BaseModel
     public function fields(Blueprint $table = null): void
     {
         $this->fields = $table ?? new Blueprint($this->table);
-        
+
         $this->fields->increments('id')->html('text');
         $this->fields->string('sender')->html('text');
     }
@@ -52,10 +52,8 @@ class Blacklist extends BaseModel
      */
     public function structure($structure): array
     {
-        $structure = [
-            'table' => ['sender'],
-            'filter' => ['senders'],
-        ];
+        $structure['table'] = ['sender'];
+        $structure['filter'] = ['senders'];
 
         return $structure;
     }

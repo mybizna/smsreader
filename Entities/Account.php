@@ -45,7 +45,7 @@ class Account extends BaseModel
     public function fields(Blueprint $table = null): void
     {
         $this->fields = $table ?? new Blueprint($this->table);
-        
+
         $this->fields->increments('id')->html('text');
         $this->fields->foreignId('partner_id')->html('recordpicker')->relation(['partner']);
         $this->fields->char('account', 255)->html('text');
@@ -57,10 +57,8 @@ class Account extends BaseModel
      */
     public function structure($structure): array
     {
-        $structure = [
-            'table' => ['partner_id', 'txn', 'account'],
-            'filter' => ['partner_id', 'txn', 'account'],
-        ];
+        $structure['table'] = ['partner_id', 'txn', 'account'];
+        $structure['filter'] = ['partner_id', 'txn', 'account'];
 
         return $structure;
     }

@@ -74,16 +74,14 @@ class Incoming extends BaseModel
      */
     public function structure($structure): array
     {
-        $structure = [
-            'table' => ['phone', 'message', 'date_sent', 'gateway_id', 'is_payment', 'completed', 'successful'],
-            'form' => [
-                ['label' => 'Phone', 'class' => 'w-full', 'fields' => ['phone']],
-                ['label' => 'Message', 'class' => 'w-full', 'fields' => ['message']],
-                ['label' => 'Incoming', 'class' => 'w-1/2', 'fields' => ['date_sent', 'params', 'gateway_id']],
-                ['label' => 'Incoming', 'class' => 'w-1/2', 'fields' => ['is_payment', 'completed', 'successful']],
-            ],
-            'filter' => ['phone', 'date_sent', 'gateway_id', 'is_payment', 'completed', 'successful'],
+        $structure['table'] = ['phone', 'message', 'date_sent', 'gateway_id', 'is_payment', 'completed', 'successful'];
+        $structure['form'] = [
+            ['label' => 'Phone', 'class' => 'col-span-full', 'fields' => ['phone']],
+            ['label' => 'Message', 'class' => 'col-span-full', 'fields' => ['message']],
+            ['label' => 'Incoming', 'class' => 'col-span-6', 'fields' => ['date_sent', 'params', 'gateway_id']],
+            ['label' => 'Incoming', 'class' => 'col-span-6', 'fields' => ['is_payment', 'completed', 'successful']],
         ];
+        $structure['filter'] = ['phone', 'date_sent', 'gateway_id', 'is_payment', 'completed', 'successful'];
 
         return $structure;
     }

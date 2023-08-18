@@ -57,15 +57,13 @@ class Template extends BaseModel
      */
     public function structure($structure): array
     {
-        $structure = [
-            'table' => ['title', 'slug', 'published'],
-            'form' => [
-                ['label' => 'Title', 'class' => 'w-full', 'fields' => ['title', 'slug']],
-                ['label' => 'Published', 'class' => 'w-1/2', 'fields' => ['published']],
-                ['label' => 'Template', 'class' => 'w-full', 'fields' => ['template']],
-            ],
-            'filter' => ['title', 'slug', 'published'],
+        $structure['table'] = ['title', 'slug', 'published'];
+        $structure['form'] = [
+            ['label' => 'Title', 'class' => 'col-span-full', 'fields' => ['title', 'slug']],
+            ['label' => 'Published', 'class' => 'col-span-6', 'fields' => ['published']],
+            ['label' => 'Template', 'class' => 'col-span-full', 'fields' => ['template']],
         ];
+        $structure['filter'] = ['title', 'slug', 'published'];
 
         return $structure;
     }

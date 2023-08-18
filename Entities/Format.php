@@ -60,14 +60,12 @@ class Format extends BaseModel
      */
     public function structure($structure): array
     {
-        $structure = [
-            'table' => ['title', 'slug', 'format', 'fields_str', 'published'],
-            'form' => [
-                ['label' => 'Name', 'class' => 'w-full', 'fields' => ['title', 'slug']],
-                ['label' => 'Published', 'class' => 'w-1/2', 'fields' => ['format', 'fields_str', 'published']],
-            ],
-            'filter' => ['title', 'slug', 'published'],
+        $structure['table'] = ['title', 'slug', 'format', 'fields_str', 'published'];
+        $structure['form'] = [
+            ['label' => 'Name', 'class' => 'col-span-full', 'fields' => ['title', 'slug']],
+            ['label' => 'Published', 'class' => 'col-span-6', 'fields' => ['format', 'fields_str', 'published']],
         ];
+        $structure['filter'] = ['title', 'slug', 'published'];
 
         return $structure;
     }
