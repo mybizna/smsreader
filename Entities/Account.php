@@ -46,7 +46,7 @@ class Account extends BaseModel
     {
         $this->fields = $table ?? new Blueprint($this->table);
 
-        $this->fields->increments('id')->html('text');
+        $this->fields->increments('id')->html('hidden');
         $this->fields->foreignId('partner_id')->html('recordpicker')->relation(['partner']);
         $this->fields->char('account', 255)->html('text');
         $this->fields->char('txn', 255)->html('text');

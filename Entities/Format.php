@@ -45,7 +45,7 @@ class Format extends BaseModel
 
         $actions = ['payment', 'confirming', 'account', 'withdraw', 'others'];
 
-        $this->fields->increments('id')->html('text');
+        $this->fields->increments('id')->html('hidden');
         $this->fields->char('title', 255)->html('text');
         $this->fields->char('slug', 255)->html('text');
         $this->fields->string('format')->html('text');

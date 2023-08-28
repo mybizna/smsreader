@@ -55,7 +55,7 @@ class Incoming extends BaseModel
 
         $actions = ['payment', 'confirming', 'account', 'withdraw', 'others'];
 
-        $this->fields->increments('id')->html('text');
+        $this->fields->increments('id')->html('hidden');
         $this->fields->char('phone', 255)->html('text');
         $this->fields->string('message')->html('textarea');
         $this->fields->datetime('date_sent')->nullable()->html('date');

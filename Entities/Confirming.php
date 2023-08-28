@@ -54,7 +54,7 @@ class Confirming extends BaseModel
     {
         $this->fields = $table ?? new Blueprint($this->table);
 
-        $this->fields->increments('id')->html('text');
+        $this->fields->increments('id')->html('hidden');
         $this->fields->char('phone', 255)->html('text');
         $this->fields->char('code', 255)->html('text');
         $this->fields->char('name', 255)->html('text');

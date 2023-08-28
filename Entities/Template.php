@@ -45,7 +45,7 @@ class Template extends BaseModel
     {
         $this->fields = $table ?? new Blueprint($this->table);
 
-        $this->fields->increments('id')->html('text');
+        $this->fields->increments('id')->html('hidden');
         $this->fields->char('title', 255)->html('text');
         $this->fields->char('slug', 255)->html('text');
         $this->fields->string('template')->html('text');
