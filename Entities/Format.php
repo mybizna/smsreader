@@ -50,7 +50,7 @@ class Format extends BaseModel
         $this->fields->char('slug', 255)->html('text');
         $this->fields->string('format')->html('text');
         $this->fields->string('fields_str')->html('text');
-        $this->fields->enum('action', $action)->options($actions)->default('others')->nullable()->html('select');
+        $this->fields->enum('action', $actions)->options($actions)->default('others')->nullable()->html('select');
         $this->fields->integer('ordering')->default(5)->html('number');
         $this->fields->tinyInteger('published')->default(true)->html('switch');
     }
