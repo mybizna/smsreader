@@ -35,17 +35,27 @@ class IncomingController extends BaseController
             $date_sent = $date_received = null;
 
             if ($date_sent_str != '') {
-                [$date, $time] = explode(' ', $date_sent_str);
-                $carbonDate = Carbon::createFromFormat('M/d/Y', $date);
-                $carbonTime = Carbon::parse($time);
-                $date_sent = $carbonDate->format('Y-m-d') . ' ' . $carbonTime->format('H:i:s');
-            }
+                if (strpos($date_sent_str, ' ')) {
+                    [$date, $time] = explode(' ', $date_sent_str);
+                    $carbonDate = Carbon::createFromFormat('M/d/Y', $date);
+                    $carbonTime = Carbon::parse($time);
+                    $date_sent = $carbonDate->format('Y-m-d') . ' ' . $carbonTime->format('H:i:s');
+                } else if (is_numeric($date_sent_str) && (int) $date_sent_str == $date_sent_str) {{
+                    $date_sent = date("Y-m-d H:i:s", $date_sent_str);
+                }
+                }
 
-            if ($date_received_str != '') {
-                [$date, $time] = explode(' ', $date_received_str);
-                $carbonDate = Carbon::createFromFormat('M/d/Y', $date);
-                $carbonTime = Carbon::parse($time);
-                $date_received = $carbonDate->format('Y-m-d') . ' ' . $carbonTime->format('H:i:s');
+                if ($date_received_str != '') {
+
+                    if (strpos($date_received_str, ' ')) {
+                        [$date, $time] = explode(' ', $date_received_str);
+                        $carbonDate = Carbon::createFromFormat('M/d/Y', $date);
+                        $carbonTime = Carbon::parse($time);
+                        $date_received = $carbonDate->format('Y-m-d') . ' ' . $carbonTime->format('H:i:s');
+                    } else if (is_numeric($date_received_str) && (int) $date_received_str == $date_received_str) {
+                        $date_received = date("Y-m-d H:i:s", $date_received_str);
+                    }
+                }
             }
 
             if ($message != '') {
@@ -96,7 +106,7 @@ class IncomingController extends BaseController
             $payment->successful = true;
             $payment->save();
 
-            $cls_payment->makePayment($partner_id, $title, $amount, $gateway_id, invoice_id:$invoice_id, code:$code, reference:$reference);
+            $cls_payment->makePayment($partner_id, $title, $amount, $gateway_id, invoice_id: $invoice_id, code: $code, reference: $reference);
 
             $result = ['status' => true, 'message' => 'Payment was successfully.'];
 

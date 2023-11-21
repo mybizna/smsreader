@@ -35,6 +35,7 @@ class Smsreader
 
     protected function processFormat($incoming)
     {
+
         $partner_cls = new Partner();
 
         $partner_id = '';
@@ -44,14 +45,14 @@ class Smsreader
         foreach ($formatings as $key => $formating) {
 
             list($processed, $analysis) = $this->analyzeFormat($formating, $incoming);
-           
+
             if ($processed) {
-            
+
                 if ($formating->action == "payment") {
                     $payment = Payment::create($analysis);
 
                     $this->processPayment($payment, $incoming);
-                
+
                     $incoming->is_payment = true;
                 } else if ($formating->action == "confirming") {
 
@@ -99,7 +100,6 @@ class Smsreader
         $incoming->completed = true;
         $incoming->action = $formating->action;
         $incoming->save();
-
 
     }
 
@@ -163,7 +163,7 @@ class Smsreader
 
                 foreach ($dateFormats as $format) {
                     $parsedDate = Carbon::createFromFormat($format, $analysis['date']);
-    
+
                     if ($parsedDate !== false && !is_null($parsedDate)) {
                         $date = $parsedDate;
                         break;
@@ -172,12 +172,12 @@ class Smsreader
 
                 if ($date !== null) {
                     // The date was successfully parsed
-                    $date_sent =  $date->format('Y-m-d'); // Output the parsed date in a specific format
-                    
+                    $date_sent = $date->format('Y-m-d'); // Output the parsed date in a specific format
+
                     if ($analysis['time'] != '') {
                         $carbonTime = Carbon::parse($analysis['time']);
                         $date_sent = $date_sent . ' ' . $carbonTime->format('H:i:s');
-                    }else{
+                    } else {
                         $date_sent = $date_sent . ' 00:00:00';
                     }
                 }
@@ -196,14 +196,29 @@ class Smsreader
     protected function processPayment($payment, $incoming)
     {
         $search_partner_by_phone = \Config::get('smsreader.search_partner_by_phone');
+        $auto_add_partner_by_phone = \Config::get('smsreader.auto_add_partner_by_phone');
+        $partner_cls = new Partner();
 
         $partner = false;
         if ($search_partner_by_phone) {
             $partner = DBPartner::where('phone', substr($payment->phone, -9))
-                ->orWhere('mobile', substr($payment->mobile, -9))
+                ->orWhere('mobile', substr($payment->phone, -9))
                 ->first();
+
         } elseif ($payment->account) {
             $partner = $partner_cls->getPartner($payment->account);
+        }
+
+        if (!$partner && $auto_add_partner_by_phone) {
+            $name_arr = explode(" ", $payment->name);
+
+            $partner_data = [
+                'first_name' => array_shift($name_arr) ?? '',
+                'last_name' => implode(' ', $name_arr),
+                'phone' => $payment->phone,
+            ];
+           
+            $partner = $partner_cls->createPartner($partner_data);
         }
 
         if ($partner) {
