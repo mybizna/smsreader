@@ -35,18 +35,20 @@ class Smsreader
 
     protected function processFormat($incoming)
     {
-
+       
         $partner_cls = new Partner();
 
         $partner_id = '';
 
         $formatings = Format::where(['published' => true])->get();
-
+        //print_r(json_encode($formatings)); exit;
         foreach ($formatings as $key => $formating) {
 
             list($processed, $analysis) = $this->analyzeFormat($formating, $incoming);
 
             if ($processed) {
+
+                
 
                 if ($formating->action == "payment") {
                     $payment = Payment::create($analysis);
@@ -163,6 +165,7 @@ class Smsreader
 
                 foreach ($dateFormats as $format) {
                     $parsedDate = Carbon::createFromFormat($format, $analysis['date']);
+                    //print_r($analysis['date']); exit;
 
                     if ($parsedDate !== false && !is_null($parsedDate)) {
                         $date = $parsedDate;
