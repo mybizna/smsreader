@@ -23,6 +23,7 @@ class IncomingController extends BaseController
     public function incoming(Request $request)
     {
         $result = [];
+        
 
         $data = $request->all();
 
