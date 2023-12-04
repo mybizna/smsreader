@@ -26,13 +26,6 @@ class IncomingController extends BaseController
 
         $data = $request->all();
 
-        $output = new \Symfony\Component\Console\Output\ConsoleOutput();
-
-        $output->writeln("<info></info>");
-        $output->writeln("<info>".json_encode($data)."</info>");
-        $output->writeln("<info>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</info>");
-        $output->writeln("<info></info>");
-
         try {
             $phone = $data['from'] ?? $data['sender'] ?? $data['phone'] ?? '';
             $message = $data['message'] ?? $data['text'] ?? '';
