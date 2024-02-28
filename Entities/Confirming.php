@@ -75,9 +75,9 @@ class Confirming extends BaseModel
 
         $structure['table'] = ['phone', 'code', 'name', 'format_id', 'incoming_id', 'amount', 'account', 'date_sent', 'completed', 'successful'];
         $structure['form'] = [
-            ['label' => 'Code', 'class' => 'col-span-full', 'fields' => ['code']],
-            ['label' => 'Confirming', 'class' => 'col-span-full  md:col-span-6 md:pr-2', 'fields' => ['format_id', 'incoming_id', 'amount', 'account']],
-            ['label' => 'Published', 'class' => 'col-span-full  md:col-span-6 md:pr-2', 'fields' => ['date_sent', 'completed', 'successful']],
+            ['label' => 'Confirming Code', 'class' => 'col-span-full', 'fields' => ['code']],
+            ['label' => 'Confirming Detail', 'class' => 'col-span-full  md:col-span-6 md:pr-2', 'fields' => ['format_id', 'incoming_id', 'amount', 'account']],
+            ['label' => 'Confirming Published', 'class' => 'col-span-full  md:col-span-6 md:pr-2', 'fields' => ['date_sent', 'completed', 'successful']],
         ];
         $structure['filter'] = ['phone', 'code', 'name', 'format_id', 'incoming_id'];
 

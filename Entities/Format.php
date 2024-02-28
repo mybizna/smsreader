@@ -62,8 +62,8 @@ class Format extends BaseModel
     {
         $structure['table'] = ['title', 'slug', 'format', 'fields_str', 'published'];
         $structure['form'] = [
-            ['label' => 'Name', 'class' => 'col-span-full', 'fields' => ['title', 'slug']],
-            ['label' => 'Published', 'class' => 'col-span-full  md:col-span-6 md:pr-2', 'fields' => ['format', 'fields_str', 'published']],
+            ['label' => 'Format Name', 'class' => 'col-span-full', 'fields' => ['title', 'slug']],
+            ['label' => 'Format Published', 'class' => 'col-span-full  md:col-span-6 md:pr-2', 'fields' => ['format', 'fields_str', 'published']],
         ];
         $structure['filter'] = ['title', 'slug', 'published'];
 

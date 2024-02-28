@@ -80,9 +80,9 @@ class Payment extends BaseModel
 
         $structure['table'] = ['phone', 'code', 'name', 'format_id', 'incoming_id', 'partner_id', 'amount', 'account', 'date_sent', 'completed', 'successful'];
         $structure['form'] = [
-            ['label' => 'Name', 'class' => 'col-span-full', 'fields' => ['name']],
-            ['label' => 'Published', 'class' => 'col-span-full  md:col-span-6 md:pr-2', 'fields' => ['phone', 'code', 'format_id', 'incoming_id', 'partner_id']],
-            ['label' => 'Published', 'class' => 'col-span-full  md:col-span-6 md:pr-2', 'fields' => ['amount', 'account', 'date_sent', 'completed', 'successful']],
+            ['label' => 'Payment Name', 'class' => 'col-span-full', 'fields' => ['name']],
+            ['label' => 'Payment Detail', 'class' => 'col-span-full  md:col-span-6 md:pr-2', 'fields' => ['phone', 'code', 'format_id', 'incoming_id', 'partner_id']],
+            ['label' => 'Payment Other Setting', 'class' => 'col-span-full  md:col-span-6 md:pr-2', 'fields' => ['amount', 'account', 'date_sent', 'completed', 'successful']],
         ];
         $structure['filter'] = ['phone', 'format_id', 'incoming_id', 'partner_id', 'amount'];
 

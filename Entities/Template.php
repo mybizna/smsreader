@@ -59,9 +59,9 @@ class Template extends BaseModel
     {
         $structure['table'] = ['title', 'slug', 'published'];
         $structure['form'] = [
-            ['label' => 'Title', 'class' => 'col-span-full', 'fields' => ['title', 'slug']],
-            ['label' => 'Published', 'class' => 'col-span-full  md:col-span-6 md:pr-2', 'fields' => ['published']],
-            ['label' => 'Template', 'class' => 'col-span-full', 'fields' => ['template']],
+            ['label' => 'Template Title', 'class' => 'col-span-full', 'fields' => ['title', 'slug']],
+            ['label' => 'Template Published', 'class' => 'col-span-full  md:col-span-6 md:pr-2', 'fields' => ['published']],
+            ['label' => 'Template Detail', 'class' => 'col-span-full', 'fields' => ['template']],
         ];
         $structure['filter'] = ['title', 'slug', 'published'];
 
