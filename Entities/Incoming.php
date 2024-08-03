@@ -16,20 +16,6 @@ class Incoming extends BaseModel
     protected $fillable = ['phone', 'message', 'date_sent', 'params', 'gateway_id', 'is_payment', 'completed', 'successful'];
 
     /**
-     * The fields that are to be render when performing relationship queries.
-     *
-     * @var array<string>
-     */
-    public $rec_names = ['phone'];
-
-    /**
-     * List of tables names that are need in this model during migration.
-     *
-     * @var array<string>
-     */
-    public array $migrationDependancy = ['sms_gateway'];
-
-    /**
      * The table associated with the model.
      *
      * @var string
@@ -69,38 +55,8 @@ class Incoming extends BaseModel
         $this->fields->tinyInteger('successful')->nullable()->default(0)->html('switch');
     }
 
-    /**
-     * List of structure for this model.
-     */
-    public function structure($structure): array
-    {
-        $structure['table'] = ['phone', 'message', 'date_sent', 'gateway_id', 'is_payment', 'completed', 'successful'];
-        $structure['form'] = [
-            ['label' => 'Incoming Phone', 'class' => 'col-span-full', 'fields' => ['phone']],
-            ['label' => 'IncomingMessage', 'class' => 'col-span-full', 'fields' => ['message']],
-            ['label' => 'Incoming Details', 'class' => 'col-span-full  md:col-span-6 md:pr-2', 'fields' => ['date_sent', 'params', 'gateway_id']],
-            ['label' => 'Incoming Other Setting', 'class' => 'col-span-full  md:col-span-6 md:pr-2', 'fields' => ['is_payment', 'completed', 'successful']],
-        ];
-        $structure['filter'] = ['phone', 'date_sent', 'gateway_id', 'is_payment', 'completed', 'successful'];
-
-        return $structure;
-    }
+ 
 
 
-    /**
-     * Define rights for this model.
-     *
-     * @return array
-     */
-    public function rights(): array
-    {
-        $rights = parent::rights();
-
-        $rights['staff'] = ['view' => true];
-        $rights['registered'] = [];
-        $rights['guest'] = [];
-
-        return $rights;
-    }
 
 }

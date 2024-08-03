@@ -15,20 +15,6 @@ class Format extends BaseModel
     protected $fillable = ['title', 'slug', 'format', 'fields_str', 'published'];
 
     /**
-     * The fields that are to be render when performing relationship queries.
-     *
-     * @var array<string>
-     */
-    public $rec_names = ['title'];
-
-    /**
-     * List of tables names that are need in this model during migration.
-     *
-     * @var array<string>
-     */
-    public array $migrationDependancy = [];
-
-    /**
      * The table associated with the modelc string
      */
     protected $table = "smsreader_format";
@@ -55,35 +41,8 @@ class Format extends BaseModel
         $this->fields->tinyInteger('published')->default(true)->html('switch');
     }
 
-    /**
-     * List of structure for this model.
-     */
-    public function structure($structure): array
-    {
-        $structure['table'] = ['title', 'slug', 'format', 'fields_str', 'published'];
-        $structure['form'] = [
-            ['label' => 'Format Name', 'class' => 'col-span-full', 'fields' => ['title', 'slug']],
-            ['label' => 'Format Published', 'class' => 'col-span-full  md:col-span-6 md:pr-2', 'fields' => ['format', 'fields_str', 'published']],
-        ];
-        $structure['filter'] = ['title', 'slug', 'published'];
-
-        return $structure;
-    }
+ 
 
 
-    /**
-     * Define rights for this model.
-     *
-     * @return array
-     */
-    public function rights(): array
-    {
-        $rights = parent::rights();
-
-        $rights['staff'] = ['view' => true];
-        $rights['registered'] = [];
-        $rights['guest'] = [];
-
-        return $rights;
-    }
+ 
 }

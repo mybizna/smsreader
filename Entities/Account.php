@@ -16,20 +16,6 @@ class Account extends BaseModel
     protected $fillable = ['partner_id', 'txn', 'account'];
 
     /**
-     * The fields that are to be render when performing relationship queries.
-     *
-     * @var array<string>
-     */
-    public $rec_names = ['partner_id', 'account'];
-
-    /**
-     * List of tables names that are need in this model during migration.
-     *
-     * @var array<string>
-     */
-    public array $migrationDependancy = ['partner'];
-
-    /**
      * The table associated with the model.
      *
      * @var string
@@ -52,32 +38,8 @@ class Account extends BaseModel
         $this->fields->char('txn', 255)->html('text');
     }
 
-    /**
-     * List of structure for this model.
-     */
-    public function structure($structure): array
-    {
-        $structure['table'] = ['partner_id', 'txn', 'account'];
-        $structure['filter'] = ['partner_id', 'txn', 'account'];
-
-        return $structure;
-    }
 
 
-    /**
-     * Define rights for this model.
-     *
-     * @return array
-     */
-    public function rights(): array
-    {
-        $rights = parent::rights();
 
-        $rights['staff'] = ['view' => true];
-        $rights['registered'] = [];
-        $rights['guest'] = [];
-
-        return $rights;
-    }
 
 }

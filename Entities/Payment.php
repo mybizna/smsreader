@@ -17,20 +17,6 @@ class Payment extends BaseModel
         'amount', 'account', 'date_sent', 'completed', 'successful'];
 
     /**
-     * The fields that are to be render when performing relationship queries.
-     *
-     * @var array<string>
-     */
-    public $rec_names = ['partner_id', 'account'];
-
-    /**
-     * List of tables names that are need in this model during migration.
-     *
-     * @var array<string>
-     */
-    public array $migrationDependancy = ['smsreader_format', 'smsreader_incoming', 'partner'];
-
-    /**
      * The table associated with the model.
      *
      * @var string
@@ -72,37 +58,8 @@ class Payment extends BaseModel
         $this->fields->tinyInteger('successful')->nullable()->default(0)->html('switch');
     }
 
-    /**
-     * List of structure for this model.
-     */
-    public function structure($structure): array
-    {
-
-        $structure['table'] = ['phone', 'code', 'name', 'format_id', 'incoming_id', 'partner_id', 'amount', 'account', 'date_sent', 'completed', 'successful'];
-        $structure['form'] = [
-            ['label' => 'Payment Name', 'class' => 'col-span-full', 'fields' => ['name']],
-            ['label' => 'Payment Detail', 'class' => 'col-span-full  md:col-span-6 md:pr-2', 'fields' => ['phone', 'code', 'format_id', 'incoming_id', 'partner_id']],
-            ['label' => 'Payment Other Setting', 'class' => 'col-span-full  md:col-span-6 md:pr-2', 'fields' => ['amount', 'account', 'date_sent', 'completed', 'successful']],
-        ];
-        $structure['filter'] = ['phone', 'format_id', 'incoming_id', 'partner_id', 'amount'];
-
-        return $structure;
-    }
+ 
 
 
-    /**
-     * Define rights for this model.
-     *
-     * @return array
-     */
-    public function rights(): array
-    {
-        $rights = parent::rights();
 
-        $rights['staff'] = ['view' => true];
-        $rights['registered'] = [];
-        $rights['guest'] = [];
-
-        return $rights;
-    }
 }

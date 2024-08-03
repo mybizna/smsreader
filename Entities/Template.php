@@ -15,20 +15,6 @@ class Template extends BaseModel
     protected $fillable = ['title', 'slug', 'template', 'published'];
 
     /**
-     * The fields that are to be render when performing relationship queries.
-     *
-     * @var array<string>
-     */
-    public $rec_names = ['title'];
-
-    /**
-     * List of tables names that are need in this model during migration.
-     *
-     * @var array<string>
-     */
-    public array $migrationDependancy = [];
-
-    /**
      * The table associated with the model.
      *
      * @var string
@@ -52,36 +38,8 @@ class Template extends BaseModel
         $this->fields->tinyInteger('published')->default(true)->html('switch');
     }
 
-    /**
-     * List of structure for this model.
-     */
-    public function structure($structure): array
-    {
-        $structure['table'] = ['title', 'slug', 'published'];
-        $structure['form'] = [
-            ['label' => 'Template Title', 'class' => 'col-span-full', 'fields' => ['title', 'slug']],
-            ['label' => 'Template Published', 'class' => 'col-span-full  md:col-span-6 md:pr-2', 'fields' => ['published']],
-            ['label' => 'Template Detail', 'class' => 'col-span-full', 'fields' => ['template']],
-        ];
-        $structure['filter'] = ['title', 'slug', 'published'];
-
-        return $structure;
-    }
+ 
 
 
-    /**
-     * Define rights for this model.
-     *
-     * @return array
-     */
-    public function rights(): array
-    {
-        $rights = parent::rights();
-
-        $rights['staff'] = ['view' => true];
-        $rights['registered'] = ['view' => true];
-        $rights['guest'] = [];
-
-        return $rights;
-    }
+  
 }
