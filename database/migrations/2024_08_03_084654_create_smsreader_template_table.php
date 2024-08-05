@@ -13,7 +13,12 @@ return new class extends Migration
     {
         Schema::create('smsreader_template', function (Blueprint $table) {
             $table->id();
-            
+
+            $table->char('title', 255);
+            $table->char('slug', 255);
+            $table->string('template');
+            $table->tinyInteger('published')->default(1);
+
             $table->timestamps();
         });
     }

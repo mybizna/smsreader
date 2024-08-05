@@ -13,7 +13,11 @@ return new class extends Migration
     {
         Schema::create('smsreader_account', function (Blueprint $table) {
             $table->id();
-            
+
+            $table->foreignId('partner_id')->constrained('partner');
+            $table->string('account', 255);
+            $table->string('txn', 255);
+
             $table->timestamps();
         });
     }

@@ -2,8 +2,6 @@
 
 namespace Modules\Smsreader\Entities;
 
-use Illuminate\Database\Schema\Blueprint;
-use Modules\Base\Classes\Migration;
 use Modules\Base\Entities\BaseModel;
 
 class Confirming extends BaseModel
@@ -15,7 +13,6 @@ class Confirming extends BaseModel
      */
     protected $fillable = ['phone', 'code', 'name', 'format_id', 'incoming_id',
         'amount', 'account', 'date_sent', 'completed', 'successful'];
-
 
     /**
      * The table associated with the model.
@@ -30,32 +27,5 @@ class Confirming extends BaseModel
      * @var bool
      */
     protected bool $can_delete = false;
-
-    /**
-     * List of fields to be migrated to the datebase when creating or updating model during migration.
-     *
-     * @param Blueprint $table
-     * @return void
-     */
-    public function fields(Blueprint $table = null): void
-    {
-        $this->fields = $table ?? new Blueprint($this->table);
-
-        $this->fields->increments('id')->html('hidden');
-        $this->fields->char('phone', 255)->html('text');
-        $this->fields->char('code', 255)->html('text');
-        $this->fields->char('name', 255)->html('text');
-        $this->fields->datetime('date_sent')->html('date');
-        $this->fields->foreignId('format_id')->nullable()->html('recordpicker')->relation(['smsreader', 'format']);
-        $this->fields->foreignId('incoming_id')->nullable()->html('recordpicker')->relation(['smsreader', 'incoming']);
-        $this->fields->decimal('amount', 20, 2)->nullable()->html('amount');
-        $this->fields->char('account', 255)->nullable()->html('text');
-        $this->fields->tinyInteger('completed')->nullable()->default(0)->html('switch');
-        $this->fields->tinyInteger('successful')->nullable()->default(0)->html('switch');
-    }
-
-  
-
-  
 
 }

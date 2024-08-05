@@ -2,8 +2,6 @@
 
 namespace Modules\Smsreader\Entities;
 
-use Illuminate\Database\Schema\Blueprint;
-use Modules\Base\Classes\Migration;
 use Modules\Base\Entities\BaseModel;
 
 class Payment extends BaseModel
@@ -29,37 +27,5 @@ class Payment extends BaseModel
      * @var bool
      */
     protected bool $can_delete = false;
-
-    /**
-     * List of fields to be migrated to the datebase when creating or updating model during migration.
-     *
-     * @param Blueprint $table
-     * @return void
-     */
-    public function fields(Blueprint $table = null): void
-    {
-        $this->fields = $table ?? new Blueprint($this->table);
-
-        $waiting = ['start', 'phone', 'account'];
-
-        $this->fields->increments('id')->html('hidden');
-        $this->fields->char('phone', 255)->html('text');
-        $this->fields->char('code', 255)->html('text');
-        $this->fields->char('name', 255)->html('text');
-        $this->fields->foreignId('format_id')->html('recordpicker')->relation(['smsreader', 'format']);
-        $this->fields->foreignId('incoming_id')->html('recordpicker')->relation(['smsreader', 'incoming']);
-        $this->fields->foreignId('partner_id')->html('recordpicker')->relation(['partner']);
-        $this->fields->enum('waiting', $waiting)->options($waiting)->default('start')->nullable()->html('select');
-        $this->fields->decimal('amount', 20, 2)->html('amount');
-        $this->fields->char('account', 255)->html('text');
-        $this->fields->char('request_type', 255)->html('text');
-        $this->fields->datetime('date_sent')->html('date');
-        $this->fields->tinyInteger('completed')->nullable()->default(0)->html('switch');
-        $this->fields->tinyInteger('successful')->nullable()->default(0)->html('switch');
-    }
-
- 
-
-
 
 }

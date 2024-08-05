@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('smsreader_blacklist', function (Blueprint $table) {
             $table->id();
-            
+
+            $table->string('sender', 255);
+
             $table->timestamps();
         });
     }

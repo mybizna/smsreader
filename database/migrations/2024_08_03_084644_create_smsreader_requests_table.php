@@ -13,7 +13,13 @@ return new class extends Migration
     {
         Schema::create('smsreader_requests', function (Blueprint $table) {
             $table->id();
-            
+
+            $table->foreignId('payment_id')->nullable();
+            $table->char('phone', 255);
+            $table->char('slug_str', 255);
+            $table->string('message');
+            $table->datetime('date_sent');
+
             $table->timestamps();
         });
     }
