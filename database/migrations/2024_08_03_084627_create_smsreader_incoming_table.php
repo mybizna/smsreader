@@ -19,7 +19,7 @@ return new class extends Migration
             $table->datetime('date_sent')->nullable();
             $table->datetime('date_received')->nullable();
             $table->string('sim')->nullable();
-            $table->foreignId('gateway_id')->nullable();
+            $table->foreignId('gateway_id')->constrained('smsreader_gateway')->onDelete('cascade')->nullable()->index('gateway_id');
             $table->string('params')->nullable();
             $table->enum('action', ['payment', 'confirming', 'account', 'withdraw', 'others'])->nullable();
             $table->tinyInteger('is_payment')->nullable()->default(0);

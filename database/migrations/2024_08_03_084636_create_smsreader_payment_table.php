@@ -17,9 +17,9 @@ return new class extends Migration
             $table->char('phone', 255);
             $table->char('code', 255);
             $table->char('name', 255);
-            $table->foreignId('format_id')->nullable();
-            $table->foreignId('incoming_id')->nullable();
-            $table->foreignId('partner_id')->nullable();
+            $table->foreignId('format_id')->constrained('smsreader_format')->onDelete('cascade')->nullable()->index('format_id');
+            $table->foreignId('incoming_id')->constrained('smsreader_incoming')->onDelete('cascade')->nullable()->index('incoming_id');
+            $table->foreignId('partner_id')->constrained('partner_partner')->onDelete('cascade')->nullable()->index('partner_id');
             $table->enum('waiting', ['start', 'phone', 'account'])->nullable();
             $table->decimal('amount', 20, 2)->nullable();
             $table->char('account', 255)->nullable();
