@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('smsreader_account', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('partner_id')->constrained('partner_partner')->onDelete('cascade')->index('partner_id');
+            $table->foreignId('partner_id')->constrained('partner_partner')->onDelete('cascade')->index('smsreader_account_partner_id');
             $table->string('account', 255);
             $table->string('txn', 255);
 
