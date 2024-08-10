@@ -1,6 +1,6 @@
 <?php
 
-use Modules\Base\Entities\BaseModel;
+use Modules\Base\Models\BaseModel;
 
 class Blacklist extends BaseModel
 {

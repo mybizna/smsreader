@@ -2,7 +2,7 @@
 
 namespace Modules\Smsreader\Classes;
 
-use Modules\Partner\Entities\Partner;
+use Modules\Partner\Models\Partner;
 
 class Gateway
 {
@@ -26,9 +26,8 @@ class Gateway
 
         $tabs = [];
 
-        
         $send_direct = view('smsreader::payment', $data)->toHtml();
-        
+
         $is_active = \Config::get('smsreader.is_active');
         if ($is_active) {
             $tabs = array(

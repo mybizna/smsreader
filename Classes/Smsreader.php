@@ -6,14 +6,14 @@ use Carbon\Carbon;
 use Modules\Account\Classes\Gateway as GatewayCls;
 use Modules\Account\Classes\Payment as PaymentCls;
 use Modules\Partner\Classes\Partner;
-use Modules\Partner\Entities\Partner as DBPartner;
-use Modules\Smsreader\Entities\Account;
-use Modules\Smsreader\Entities\Confirming;
-use Modules\Smsreader\Entities\Format;
-use Modules\Smsreader\Entities\Incoming;
-use Modules\Smsreader\Entities\Payment;
-use Modules\Smsreader\Entities\Requests;
-use Modules\Smsreader\Entities\Template;
+use Modules\Partner\Models\Partner as DBPartner;
+use Modules\Smsreader\Models\Account;
+use Modules\Smsreader\Models\Confirming;
+use Modules\Smsreader\Models\Format;
+use Modules\Smsreader\Models\Incoming;
+use Modules\Smsreader\Models\Payment;
+use Modules\Smsreader\Models\Requests;
+use Modules\Smsreader\Models\Template;
 
 class Smsreader
 {
@@ -35,7 +35,7 @@ class Smsreader
 
     protected function processFormat($incoming)
     {
-       
+
         $partner_cls = new Partner();
 
         $partner_id = '';
@@ -47,8 +47,6 @@ class Smsreader
             list($processed, $analysis) = $this->analyzeFormat($formating, $incoming);
 
             if ($processed) {
-
-                
 
                 if ($formating->action == "payment") {
                     $payment = Payment::create($analysis);
@@ -220,7 +218,7 @@ class Smsreader
                 'last_name' => implode(' ', $name_arr),
                 'phone' => $payment->phone,
             ];
-           
+
             $partner = $partner_cls->createPartner($partner_data);
         }
 

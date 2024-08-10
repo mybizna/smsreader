@@ -6,11 +6,11 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Modules\Account\Classes\Gateway as ClsGateway;
 use Modules\Account\Classes\Payment as ClsPayment;
-use Modules\Account\Entities\Invoice;
+use Modules\Account\Models\Invoice;
 use Modules\Base\Http\Controllers\BaseController;
 use Modules\Smsreader\Classes\Smsreader;
-use Modules\Smsreader\Entities\Incoming;
-use Modules\Smsreader\Entities\Payment;
+use Modules\Smsreader\Models\Incoming;
+use Modules\Smsreader\Models\Payment;
 
 class IncomingController extends BaseController
 {
@@ -23,7 +23,6 @@ class IncomingController extends BaseController
     public function incoming(Request $request)
     {
         $result = [];
-        
 
         $data = $request->all();
 
@@ -43,8 +42,7 @@ class IncomingController extends BaseController
                     $date_sent = $carbonDate->format('Y-m-d') . ' ' . $carbonTime->format('H:i:s');
                 } else if (is_numeric($date_sent_str) && (int) $date_sent_str == $date_sent_str) {{
                     $date_sent = date("Y-m-d H:i:s", $date_sent_str);
-                }
-                }
+                }}
 
                 if ($date_received_str != '') {
 

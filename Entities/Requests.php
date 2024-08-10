@@ -1,8 +1,8 @@
 <?php
 
-namespace Modules\Smsreader\Entities;
+namespace Modules\Smsreader\Models;
 
-use Modules\Base\Entities\BaseModel;
+use Modules\Base\Models\BaseModel;
 
 class Requests extends BaseModel
 {
