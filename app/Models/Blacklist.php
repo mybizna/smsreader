@@ -1,4 +1,5 @@
 <?php
+namespace Modules\Smsreader\Models;
 
 use Modules\Base\Models\BaseModel;
 

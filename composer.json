@@ -26,7 +26,14 @@
   },
   "autoload": {
     "psr-4": {
-      "Modules\\Smsreader\\": ""
+      "Modules\\Smsreader\\": "app/",
+      "Modules\\Smsreader\\Database\\Factories\\": "database/factories/",
+      "Modules\\Smsreader\\Database\\Seeders\\": "database/seeders/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Modules\\Smsreader\\Tests\\": "tests/"
     }
   }
 }
