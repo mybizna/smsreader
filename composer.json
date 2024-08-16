@@ -16,7 +16,7 @@
     }
   ],
   "require": {
-    "mybizna/smsmass": "^24.2"
+    "mybizna/smsmass": "^2024.4"
   },
   "extra": {
     "laravel": {
