@@ -9,7 +9,7 @@ class SmsreaderServiceProvider extends ServiceProvider
 {
     protected string $moduleName = 'Smsreader';
 
-    protected string $moduleNameLower = 'Smsreader';
+    protected string $moduleNameLower = 'smsreader';
 
     /**
      * Boot the application events.

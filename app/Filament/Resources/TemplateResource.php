@@ -2,9 +2,6 @@
 
 namespace Modules\Smsreader\Filament\Resources;
 
-use Modules\Smsreader\Filament\Resources\TemplateResource\Pages;
-use Modules\Smsreader\Filament\Resources\TemplateResource\RelationManagers;
-use Modules\Smsreader\Models\Template;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -12,10 +9,16 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Modules\Smsreader\Filament\Resources\TemplateResource\Pages;
+use Modules\Smsreader\Models\Template;
 
 class TemplateResource extends Resource
 {
     protected static ?string $model = Template::class;
+
+    protected static ?string $slug = 'smsreader/template';
+
+    protected static ?string $navigationGroup = 'SMS';
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
