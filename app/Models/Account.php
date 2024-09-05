@@ -3,6 +3,7 @@
 namespace Modules\Smsreader\Models;
 
 use Modules\Base\Models\BaseModel;
+use Modules\Partner\Models\Partner;
 
 class Account extends BaseModel
 {
@@ -19,5 +20,14 @@ class Account extends BaseModel
      * @var string
      */
     protected $table = "smsreader_account";
+
+    /**
+     * Add relationship to Partner
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function partner()
+    {
+        return $this->belongsTo(Partner::class);
+    }
 
 }

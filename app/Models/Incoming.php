@@ -3,6 +3,7 @@
 namespace Modules\Smsreader\Models;
 
 use Modules\Base\Models\BaseModel;
+use Modules\Smsreader\Models\Gateway;
 
 class Incoming extends BaseModel
 {
@@ -26,5 +27,14 @@ class Incoming extends BaseModel
      * @var bool
      */
     protected bool $can_delete = false;
+
+    /**
+     * Add relationship to Gateway
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function gateway()
+    {
+        return $this->belongsTo(Gateway::class);
+    }
 
 }

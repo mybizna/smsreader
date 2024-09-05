@@ -3,6 +3,8 @@
 namespace Modules\Smsreader\Models;
 
 use Modules\Base\Models\BaseModel;
+use Modules\Smsreader\Models\Format;
+use Modules\Smsreader\Models\Incoming;
 
 class Confirming extends BaseModel
 {
@@ -27,5 +29,23 @@ class Confirming extends BaseModel
      * @var bool
      */
     protected bool $can_delete = false;
+
+    /**
+     * Add relationship to Format
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function format()
+    {
+        return $this->belongsTo(Format::class);
+    }
+
+    /**
+     * Add relationship to Incoming
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function incoming()
+    {
+        return $this->belongsTo(Incoming::class);
+    }
 
 }
