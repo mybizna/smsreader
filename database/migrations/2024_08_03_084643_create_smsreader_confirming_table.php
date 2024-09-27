@@ -18,14 +18,19 @@ return new class extends Migration
             $table->char('code', 255);
             $table->char('name', 255);
             $table->datetime('date_sent');
-            $table->foreignId('format_id')->constrained('smsreader_format')->onDelete('cascade')->nullable()->index('smsreader_confirming_format_id');
-            $table->foreignId('incoming_id')->constrained('smsreader_incoming')->onDelete('cascade')->nullable()->index('smsreader_confirming_incoming_id');
+            $table->foreignId('format_id')->nullable()->constrained('smsreader_format')->onDelete('set null');
+            $table->foreignId('incoming_id')->nullable()->constrained('smsreader_incoming')->onDelete('set null');
             $table->decimal('amount', 20, 2)->nullable();
             $table->char('account', 255)->nullable();
             $table->tinyInteger('completed')->nullable()->default(0);
             $table->tinyInteger('successful')->nullable()->default(0);
 
+            $table->foreignId('created_by')->nullable()->constrained('users')->onDelete('set null');
+            $table->foreignId('updated_by')->nullable()->constrained('users')->onDelete('set null');
+            $table->foreignId('deleted_by')->nullable()->constrained('users')->onDelete('set null');
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

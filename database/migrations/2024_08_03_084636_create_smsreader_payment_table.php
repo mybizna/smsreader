@@ -17,9 +17,9 @@ return new class extends Migration
             $table->char('phone', 255);
             $table->char('code', 255);
             $table->char('name', 255);
-            $table->foreignId('format_id')->constrained('smsreader_format')->onDelete('cascade')->nullable()->index('smsreader_payment_format_id');
-            $table->foreignId('incoming_id')->constrained('smsreader_incoming')->onDelete('cascade')->nullable()->index('smsreader_payment_incoming_id');
-            $table->foreignId('partner_id')->constrained('partner_partner')->onDelete('cascade')->nullable()->index('smsreader_payment_partner_id');
+            $table->foreignId('format_id')->nullable()->constrained('smsreader_format')->onDelete('set null');
+            $table->foreignId('incoming_id')->nullable()->constrained('smsreader_incoming')->onDelete('set null');
+            $table->foreignId('partner_id')->nullable()->constrained('partner_partner')->onDelete('set null');
             $table->enum('waiting', ['start', 'phone', 'account'])->nullable();
             $table->decimal('amount', 20, 2)->nullable();
             $table->char('account', 255)->nullable();
@@ -28,7 +28,12 @@ return new class extends Migration
             $table->tinyInteger('completed')->nullable()->default(0);
             $table->tinyInteger('successful')->nullable()->default(0);
 
+            $table->foreignId('created_by')->nullable()->constrained('users')->onDelete('set null');
+            $table->foreignId('updated_by')->nullable()->constrained('users')->onDelete('set null');
+            $table->foreignId('deleted_by')->nullable()->constrained('users')->onDelete('set null');
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

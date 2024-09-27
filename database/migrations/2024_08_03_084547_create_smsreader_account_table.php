@@ -14,11 +14,16 @@ return new class extends Migration
         Schema::create('smsreader_account', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('partner_id')->constrained('partner_partner')->onDelete('cascade')->index('smsreader_account_partner_id');
+            $table->foreignId('partner_id')->nullable()->constrained('partner_partner')->onDelete('set null');
             $table->string('account', 255);
             $table->string('txn', 255);
 
+            $table->foreignId('created_by')->nullable()->constrained('users')->onDelete('set null');
+            $table->foreignId('updated_by')->nullable()->constrained('users')->onDelete('set null');
+            $table->foreignId('deleted_by')->nullable()->constrained('users')->onDelete('set null');
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -14,13 +14,18 @@ return new class extends Migration
         Schema::create('smsreader_requests', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('payment_id')->constrained('account_payment')->onDelete('cascade')->nullable()->index('smsreader_requests_payment_id');
+            $table->foreignId('payment_id')->nullable()->constrained('account_payment')->onDelete('set null');
             $table->char('phone', 255);
             $table->char('slug_str', 255);
             $table->string('message');
             $table->datetime('date_sent');
 
+            $table->foreignId('created_by')->nullable()->constrained('users')->onDelete('set null');
+            $table->foreignId('updated_by')->nullable()->constrained('users')->onDelete('set null');
+            $table->foreignId('deleted_by')->nullable()->constrained('users')->onDelete('set null');
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
