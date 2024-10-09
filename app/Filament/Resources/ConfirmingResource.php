@@ -4,15 +4,12 @@ namespace Modules\Smsreader\Filament\Resources;
 
 use Filament\Forms;
 use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Modules\Smsreader\Filament\Resources\ConfirmingResource\Pages;
+use Modules\Base\Filament\Resources\BaseResource;
 use Modules\Smsreader\Models\Confirming;
 
-class ConfirmingResource extends Resource
+class ConfirmingResource extends BaseResource
 {
     protected static ?string $model = Confirming::class;
 
@@ -113,27 +110,4 @@ class ConfirmingResource extends Resource
             ]);
     }
 
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
-
-    public static function getPages(): array
-    {
-        return [
-            'index' => Pages\ListConfirmings::route('/'),
-            'create' => Pages\CreateConfirming::route('/create'),
-            'edit' => Pages\EditConfirming::route('/{record}/edit'),
-        ];
-    }
-
-    public static function getEloquentQuery(): Builder
-    {
-        return parent::getEloquentQuery()
-            ->withoutGlobalScopes([
-                SoftDeletingScope::class,
-            ]);
-    }
 }

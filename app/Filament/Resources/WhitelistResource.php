@@ -4,15 +4,12 @@ namespace Modules\Smsreader\Filament\Resources;
 
 use Filament\Forms;
 use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Modules\Smsreader\Filament\Resources\WhitelistResource\Pages;
+use Modules\Base\Filament\Resources\BaseResource;
 use Modules\Smsreader\Models\Whitelist;
 
-class WhitelistResource extends Resource
+class WhitelistResource extends BaseResource
 {
     protected static ?string $model = Whitelist::class;
 
@@ -62,27 +59,4 @@ class WhitelistResource extends Resource
             ]);
     }
 
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
-
-    public static function getPages(): array
-    {
-        return [
-            'index' => Pages\ListWhitelists::route('/'),
-            'create' => Pages\CreateWhitelist::route('/create'),
-            'edit' => Pages\EditWhitelist::route('/{record}/edit'),
-        ];
-    }
-
-    public static function getEloquentQuery(): Builder
-    {
-        return parent::getEloquentQuery()
-            ->withoutGlobalScopes([
-                SoftDeletingScope::class,
-            ]);
-    }
 }

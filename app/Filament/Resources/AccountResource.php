@@ -4,15 +4,12 @@ namespace Modules\Smsreader\Filament\Resources;
 
 use Filament\Forms;
 use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Modules\Smsreader\Filament\Resources\AccountResource\Pages;
+use Modules\Base\Filament\Resources\BaseResource;
 use Modules\Smsreader\Models\Account;
 
-class AccountResource extends Resource
+class AccountResource extends BaseResource
 {
     protected static ?string $model = Account::class;
 
@@ -73,27 +70,4 @@ class AccountResource extends Resource
             ]);
     }
 
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
-
-    public static function getPages(): array
-    {
-        return [
-            'index' => Pages\ListAccounts::route('/'),
-            'create' => Pages\CreateAccount::route('/create'),
-            'edit' => Pages\EditAccount::route('/{record}/edit'),
-        ];
-    }
-
-    public static function getEloquentQuery(): Builder
-    {
-        return parent::getEloquentQuery()
-            ->withoutGlobalScopes([
-                SoftDeletingScope::class,
-            ]);
-    }
 }
