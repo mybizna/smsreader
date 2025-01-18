@@ -34,7 +34,7 @@ class Account extends BaseModel
 
     public function migration(Blueprint $table): void
     {
-        $table->id();
+
 
         $table->foreignId('partner_id')->nullable()->constrained(table: 'partner_partner')->onDelete('set null');
         $table->string('account', 255);

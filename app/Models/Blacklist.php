@@ -23,7 +23,7 @@ class Blacklist extends BaseModel
 
     public function migration(Blueprint $table): void
     {
-        $table->id();
+
 
         $table->string('sender', 255);
 

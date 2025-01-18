@@ -42,7 +42,7 @@ class Incoming extends BaseModel
 
     public function migration(Blueprint $table): void
     {
-        $table->id();
+
 
         $table->char('phone', 255);
         $table->string('message');

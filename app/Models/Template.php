@@ -24,7 +24,7 @@ class Template extends BaseModel
 
     public function migration(Blueprint $table): void
     {
-        $table->id();
+
 
         $table->char('title', 255);
         $table->char('slug', 255);
