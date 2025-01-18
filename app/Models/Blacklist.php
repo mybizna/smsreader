@@ -2,6 +2,7 @@
 namespace Modules\Smsreader\Models;
 
 use Modules\Base\Models\BaseModel;
+use Illuminate\Database\Schema\Blueprint;
 
 class Blacklist extends BaseModel
 {
@@ -19,4 +20,13 @@ class Blacklist extends BaseModel
      */
     protected $table = "smsreader_blacklist";
 
+
+    public function migration(Blueprint $table): void
+    {
+        $table->id();
+
+        $table->string('sender', 255);
+
+
+    }
 }

@@ -3,6 +3,7 @@
 namespace Modules\Smsreader\Models;
 
 use Modules\Base\Models\BaseModel;
+use Illuminate\Database\Schema\Blueprint;
 
 class Template extends BaseModel
 {
@@ -20,4 +21,15 @@ class Template extends BaseModel
      */
     protected $table = "smsreader_template";
 
+
+    public function migration(Blueprint $table): void
+    {
+        $table->id();
+
+        $table->char('title', 255);
+        $table->char('slug', 255);
+        $table->string('template');
+        $table->tinyInteger('published')->default(1);
+
+    }
 }

@@ -3,7 +3,9 @@
 namespace Modules\Smsreader\Models;
 
 use Modules\Base\Models\BaseModel;
-use Modules\Smsreader\Models\Gateway;
+use Modules\Sms\Models\Gateway;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Incoming extends BaseModel
 {
@@ -32,9 +34,27 @@ class Incoming extends BaseModel
      * Add relationship to Gateway
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function gateway()
+    public function gateway(): BelongsTo
     {
         return $this->belongsTo(Gateway::class);
     }
 
+
+    public function migration(Blueprint $table): void
+    {
+        $table->id();
+
+        $table->char('phone', 255);
+        $table->string('message');
+        $table->datetime('date_sent')->nullable();
+        $table->datetime('date_received')->nullable();
+        $table->string('sim')->nullable();
+        $table->foreignId('gateway_id')->nullable()->constrained(table: 'sms_gateway')->onDelete('set null');
+        $table->string('params')->nullable();
+        $table->enum('action', ['payment', 'confirming', 'account', 'withdraw', 'others'])->nullable();
+        $table->tinyInteger('is_payment')->nullable()->default(0);
+        $table->tinyInteger('completed')->nullable()->default(0);
+        $table->tinyInteger('successful')->nullable()->default(0);
+
+    }
 }

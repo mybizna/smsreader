@@ -3,6 +3,7 @@
 namespace Modules\Smsreader\Models;
 
 use Modules\Base\Models\BaseModel;
+use Illuminate\Database\Schema\Blueprint;
 
 class Whitelist extends BaseModel
 {
@@ -20,4 +21,12 @@ class Whitelist extends BaseModel
      */
     protected $table = "smsreader_whitelist";
 
+
+    public function migration(Blueprint $table): void
+    {
+        $table->id();
+
+        $table->string('sender', 255);
+
+    }
 }

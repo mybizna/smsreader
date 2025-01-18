@@ -3,6 +3,7 @@
 namespace Modules\Smsreader\Models;
 
 use Modules\Base\Models\BaseModel;
+use Illuminate\Database\Schema\Blueprint;
 
 class Format extends BaseModel
 {
@@ -18,4 +19,18 @@ class Format extends BaseModel
      */
     protected $table = "smsreader_format";
 
+
+    public function migration(Blueprint $table): void
+    {
+        $table->id();
+
+        $table->char('title', 255);
+        $table->char('slug', 255);
+        $table->string('format');
+        $table->string('fields_str');
+        $table->enum('action', ['payment', 'confirming', 'account', 'withdraw', 'others'])->nullable();
+        $table->integer('ordering')->default(5);
+        $table->tinyInteger('published')->default(true);
+
+    }
 }

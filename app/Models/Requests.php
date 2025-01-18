@@ -4,6 +4,8 @@ namespace Modules\Smsreader\Models;
 
 use Modules\Base\Models\BaseModel;
 use Modules\Smsreader\Models\Payment;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Requests extends BaseModel
 {
@@ -25,9 +27,21 @@ class Requests extends BaseModel
      * Adding relationship to Payment
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function payment()
+    public function payment(): BelongsTo
     {
         return $this->belongsTo(Payment::class);
     }
 
+
+    public function migration(Blueprint $table): void
+    {
+        $table->id();
+
+        $table->foreignId('payment_id')->nullable()->constrained(table: 'account_payment')->onDelete('set null');
+        $table->char('phone', 255);
+        $table->char('slug_str', 255);
+        $table->string('message');
+        $table->datetime('date_sent');
+
+    }
 }
