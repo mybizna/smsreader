@@ -66,13 +66,19 @@ class Confirming extends BaseModel
         $table->char('code', 255);
         $table->char('name', 255);
         $table->datetime('date_sent');
-        $table->foreignId('format_id')->nullable()->constrained(table: 'smsreader_format')->onDelete('set null');
-        $table->foreignId('incoming_id')->nullable()->constrained(table: 'smsreader_incoming')->onDelete('set null');
+        $table->unsignedBigInteger('format_id')->nullable();
+        $table->unsignedBigInteger('incoming_id')->nullable();
         $table->integer('amount')->nullable();
         $table->string('currency')->default('USD');
         $table->char('account', 255)->nullable();
         $table->tinyInteger('completed')->nullable()->default(0);
         $table->tinyInteger('successful')->nullable()->default(0);
 
+    }
+
+    public function post_migration(Blueprint $table): void
+    {
+        $table->foreign('format_id')->nullable()->constrained(table: 'smsreader_format')->onDelete('set null');
+        $table->foreign('incoming_id')->nullable()->constrained(table: 'smsreader_incoming')->onDelete('set null');
     }
 }

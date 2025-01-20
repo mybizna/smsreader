@@ -1,10 +1,9 @@
 <?php
-
 namespace Modules\Smsreader\Models;
 
+use Illuminate\Database\Schema\Blueprint;
 use Modules\Base\Models\BaseModel;
 use Modules\Partner\Models\Partner;
-use Illuminate\Database\Schema\Blueprint;
 
 class Account extends BaseModel
 {
@@ -31,15 +30,17 @@ class Account extends BaseModel
         return $this->belongsTo(Partner::class);
     }
 
-
     public function migration(Blueprint $table): void
     {
 
-
-        $table->foreignId('partner_id')->nullable()->constrained(table: 'partner_partner')->onDelete('set null');
+        $table->unsignedBigInteger('partner_id')->nullable();
         $table->string('account', 255);
         $table->string('txn', 255);
 
+    }
 
+    public function post_migration(Blueprint $table): void
+    {
+        $table->foreign('partner_id')->references('id')->on('partner_partner')->onDelete('set null');
     }
 }

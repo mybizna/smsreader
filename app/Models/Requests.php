@@ -1,11 +1,10 @@
 <?php
-
 namespace Modules\Smsreader\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Schema\Blueprint;
 use Modules\Base\Models\BaseModel;
 use Modules\Smsreader\Models\Payment;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Requests extends BaseModel
 {
@@ -32,16 +31,19 @@ class Requests extends BaseModel
         return $this->belongsTo(Payment::class);
     }
 
-
     public function migration(Blueprint $table): void
     {
 
-
-        $table->foreignId('payment_id')->nullable()->constrained(table: 'account_payment')->onDelete('set null');
+        $table->unsignedBigInteger('payment_id')->nullable();
         $table->char('phone', 255);
         $table->char('slug_str', 255);
         $table->string('message');
         $table->datetime('date_sent');
 
+    }
+
+    public function post_migration(Blueprint $table): void
+    {
+        $table->foreign('payment_id')->references('id')->on('account_payment')->onDelete('set null');
     }
 }
