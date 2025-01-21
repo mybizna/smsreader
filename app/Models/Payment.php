@@ -91,8 +91,8 @@ class Payment extends BaseModel
 
     public function post_migration(Blueprint $table): void
     {
-        $table->foreign('format_id')->nullable()->constrained(table: 'smsreader_format')->onDelete('set null');
-        $table->foreign('incoming_id')->nullable()->constrained(table: 'smsreader_incoming')->onDelete('set null');
-        $table->foreign('partner_id')->nullable()->constrained(table: 'partner_partner')->onDelete('set null');
+        $table->foreign('format_id')->references('id')->on(table: 'smsreader_format')->onDelete('set null');
+        $table->foreign('incoming_id')->references('id')->on(table: 'smsreader_incoming')->onDelete('set null');
+        $table->foreign('partner_id')->references('id')->on(table: 'partner_partner')->onDelete('set null');
     }
 }

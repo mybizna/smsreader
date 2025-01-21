@@ -78,7 +78,7 @@ class Confirming extends BaseModel
 
     public function post_migration(Blueprint $table): void
     {
-        $table->foreign('format_id')->nullable()->constrained(table: 'smsreader_format')->onDelete('set null');
-        $table->foreign('incoming_id')->nullable()->constrained(table: 'smsreader_incoming')->onDelete('set null');
+        $table->foreign('format_id')->references('id')->on(table: 'smsreader_format')->onDelete('set null');
+        $table->foreign('incoming_id')->references('id')->on(table: 'smsreader_incoming')->onDelete('set null');
     }
 }

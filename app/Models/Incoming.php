@@ -57,6 +57,6 @@ class Incoming extends BaseModel
 
     public function post_migration(Blueprint $table): void
     {
-        $table->foreign('gateway_id')->nullable()->constrained(table: 'sms_gateway')->onDelete('set null');
+        $table->foreign('gateway_id')->references('id')->on(table: 'sms_gateway')->onDelete('set null');
     }
 }
